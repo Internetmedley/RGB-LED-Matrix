@@ -1,197 +1,129 @@
 #include <hwlib.hpp>
 #include <array>
-#include "wall.hpp"
 
 // ===========================================================================
 
-class drawable {
-protected:
-
-   hwlib::window & w;
-   hwlib::xy location;
-   hwlib::xy size;
-   
-public:
-
-   drawable( hwlib::window & w, const hwlib::xy & location, const hwlib::xy & size ):
-      w( w ),
-      location( location ),
-      size( size )
-   {}      
-   
-    hwlib::xy bounce{-1, -1};
-   virtual void draw() = 0;
-   virtual void update(){}
-   bool overlaps( const drawable & other );   
-   virtual void interact( drawable & other ){}
-   
-   hwlib::ostream & print( hwlib::ostream & out ) const {
-      return out << location << " " << ( location + size );
-   }      
-};
-
-hwlib::ostream & operator<<( hwlib::ostream & lhs, const drawable & rhs ){
-   return rhs.print( lhs );
-}
-
-bool within( int x, int a, int b ){
-   return ( x >= a ) && ( x <= b );
-}
-
-bool drawable::overlaps( const drawable & other ){
-   
-   bool x_overlap = within( 
-      location.x, 
-      other.location.x, 
-      other.location.x + other.size.x
-   ) || within( 
-      other.location.x, 
-      location.x, 
-      location.x + size.x
-   );
-     
-   bool y_overlap = within( 
-      location.y, 
-      other.location.y, 
-      other.location.y + other.size.y
-   ) || within( 
-      other.location.y, 
-      location.y, 
-      location.y + size.y
-   );
-   
-   return x_overlap && y_overlap;
-}
-
-// ===========================================================================
-
-class line : public drawable {
-private:
-
-   hwlib::xy end;
-   
-public:
-
-   line( hwlib::window & w, const hwlib::xy & location, const hwlib::xy & end ):
-      drawable( w, location, end - location ),
-      end( end )
-   {}
-   
-   void draw() override {
-      hwlib::line x( location, end );
-      x.draw( w );;
-   }
-};
-
-// ===========================================================================
-
-class circle : public drawable {
-protected:
-
-   int radius;
- 
-public:
-
-   circle( hwlib::window & w, const hwlib::xy & midpoint, int radius ):
-      drawable( w, 
-         midpoint - hwlib::xy( radius, radius ), 
-         hwlib::xy( radius, radius ) * 2 ),
-      radius( radius )
-   {}
-   
-   void draw() override {
-      hwlib::circle c( location + hwlib::xy( radius, radius ), radius );
-      c.draw( w );
-   }
-};
-
-// ===========================================================================
-
-class ball : public circle {
-private:
-
-   hwlib::xy speed;
-   
-public:
-
-   ball( 
-      hwlib::window & w, 
-      const hwlib::xy & midpoint, 
-      int radius, 
-      const hwlib::xy & speed 
-   ):
-      circle( w, midpoint, radius ),
-      speed( speed )  
-   {}
-   
-   void update() override {
-      location = location + speed; 
-   }
-   
-   void interact( drawable & other ) override {
-      if( this != & other){
-         if( overlaps( other )){
-            speed.x *= other.bounce.x;
-            speed.y *= other.bounce.y;
-            
-            if(other.bounce.x < 0){
-                location.x = location.x + 2* speed.x;
-            }
-
-            if(other.bounce.y < 0){
-                location.y = location.y + 2* speed.y;
-            }
-            
-
-         }
-      }
-   }   
-};
-
-// ===========================================================================
+namespace target = hwlib::target;
 
 int main(){
-   hwlib::target::window w( hwlib::xy( 128, 64 ), 2 );
-   line top( w, hwlib::xy(   0,  5 ), hwlib::xy( 127,  5 ) );
-   line right( w, hwlib::xy( 122,  0 ), hwlib::xy( 122, 63 ) );
-   line bottom( w, hwlib::xy(   0, 58 ), hwlib::xy( 127, 58 ) );
-   line left( w, hwlib::xy(   5,  0 ), hwlib::xy(   5, 63 )  );
-   top.bounce.x = 1;
-   bottom.bounce.x = 1;
-   right.bounce.y = 1;
-   left.bounce.y = 1;
-   ball b( w, hwlib::xy( 50, 20 ), 9, hwlib::xy( 5, 1 ) );
+    auto a = target::pin_out( 0, 16 );          //A0
+    auto b = target::pin_out( 0, 24 );
+    auto c = target::pin_out( 0, 23 );
+    auto d = target::pin_out( 0, 22 );
+    
+    auto r1 = target::pin_out( target::pins::d24 );
+    auto g1 = target::pin_out( target::pins::d25 );
+    auto b1 = target::pin_out( target::pins::d26 );
+    auto r2 = target::pin_out( target::pins::d27 );
+    auto g2 = target::pin_out( target::pins::d28 );
+    auto b2 = target::pin_out( target::pins::d29 );
+    
+    auto oe  = target::pin_out( target::pins::d9  );
+    auto lat = target::pin_out( target::pins::d10 );
+    auto clk = target::pin_out( target::pins::d11 );
+    
+    struct uint4_t{
+        unsigned b : 4;
+    };
+    
+    struct uint3_t{
+        unsigned b : 3;
+    };
+    
+    uint4_t row_data = { 0x00 };
+    auto rows = hwlib::port_out_from( a, b, c, d );
+    
+    
+    uint3_t rgb1_data = { 0x05 };
+    auto rgb1 = hwlib::port_out_from( r1, g1, b1 );
+    rgb1.write( rgb1_data.b );
+    rgb1.flush();
+    
+    uint3_t rgb2_data = { 0x05 };
+    auto rgb2 = hwlib::port_out_from( r2, g2, b2 );
+    rgb2.write( rgb2_data.b );
+    rgb2.flush();
+    
+    //oe.write( 1 );
+    //oe.flush();
+    //hwlib::wait_ms( 40 );
+    //oe.write( 0 );
+    //oe.flush();
+    
+    /*for (;;){
+        //for ( unsigned int i = 0; i <= 5; i++ ){
+            //oe.write( 0 );
+            //oe.flush();
+            
+            clk.write( 0 );
+            clk.flush();
+            
+            rows.write( row_data.b );
+            rows.flush();
+            row_data.b++;
+            
+            rgb1.write( rgb1_data.b );
+            rgb1.flush();
+            rgb1_data.b++;
+            
+            rgb2.write( rgb2_data.b );
+            rgb2.flush();
+            rgb2_data.b++;
+            
+            clk.write( 1 );
+            clk.flush();
+            hwlib::wait_ms( 10 );
+            
+            lat.write( 1 );
+            hwlib::wait_ms( 20 );
+            lat.write( 0 );
+            
+            hwlib::wait_ms( 1000 );
+            //oe.write( 1 );
+            //oe.flush();
+        //}
+    }*/
+    oe.write( 0 );
+    oe.flush();
+    
+    for( ;;/*unsigned int i = 0; i < 2048; i++*/ ){
+        lat.write( 0 );
+        lat.flush();
+        clk.write( 0 );
+        clk.flush();
+        rows.write( row_data.b );
+        rows.flush();
+        
+        //rgb1.write( rgb1_data.b );
+        //rgb1.flush();
+        //rgb1_data.b++;
+        
+        //rgb2.write( rgb2_data.b );
+        //rgb2.flush();
+        //rgb2_data.b++;
+        
+        row_data.b++;
+        clk.write( 1 );
+        clk.flush();
+        lat.write( 1 );
+        lat.flush();
+    }
+    
+    for( unsigned int i = 0)
+    
+    
+    //clk.write( 0 );
+    //lat.write( 1 );
+    //lat.write( 0 );
+    //for(;;){
+        //hwlib::wait_ms( 200 );
+       // oe.write( 1 ); 
+        //hwlib::wait_ms( 200 );
+        //oe.write( 0 );
+    //}
    
-   std::array< drawable *, 5 > objects = { &b, &top, &left, &right, &bottom };
-    int update_interval = 0;
-   for(;;){
-       
-      w.clear();
-      for( auto & p : objects ){
-          
-          p->update();
-      }
-      for( auto & p : objects ){
-         for( auto & other : objects ){
-            p->interact( *other );
-         } 
-      }
-    for( auto & p : objects ){
-         p->draw();
-      }
-    if( update_interval == 1 ){
-        wall( w, hwlib::xy(   0,  0 ), hwlib::xy( 127,  5 ), update_interval ).draw();
-        wall( w, hwlib::xy( 122,  0 ), hwlib::xy( 127, 63 ), update_interval ).draw();
-        wall( w, hwlib::xy(   0, 58 ), hwlib::xy( 127, 63 ), update_interval ).draw();
-        wall( w, hwlib::xy(   0,  0 ), hwlib::xy(   5, 63 ), update_interval ).draw();
-        update_interval = 0;
-    }
-    else{
-        update_interval = 1;
-    }
-    w.flush();
-    hwlib::wait_ms( 200 );
-
-   }
+    
+    
+    
+    return  0;
 }
-
