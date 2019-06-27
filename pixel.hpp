@@ -138,10 +138,6 @@ public:
         right.draw( b );
     }
 };
-
 }
-
-
-
 
 #endif //PIXELS_HPP 

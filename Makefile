@@ -12,7 +12,7 @@
 SOURCES := 
 
 # header files in this project
-HEADERS := buffer.hpp
+HEADERS := buffer.hpp pixel.hpp
 
 # other places to look for files for this project
 SEARCH  := 
