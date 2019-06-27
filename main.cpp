@@ -33,6 +33,9 @@ int main(){
     matrix::Buffer buf( lat, oe, clk, rows, rgb1, rgb2 );
     buf.write( hwlib::xy(15, 15), WHITE );
     //buf.write_rand_col( hwlib::xy(15, 16) );
+    matrix::EmptyRectangle rect1( hwlib::xy(15, 15), hwlib::xy(20, 20), RED );
+    matrix::Rectangle rect2( hwlib::xy(13, 8), hwlib::xy(18, 17), RED );
+    
     for( ;; ){
         buf.sketch();
     }

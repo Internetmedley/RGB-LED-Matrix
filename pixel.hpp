@@ -87,6 +87,7 @@ public:
             E += TwoDy; //E += 2*Dy;
          }
       }
+    }
 };
 
 class Rectangle : public Drawable{
