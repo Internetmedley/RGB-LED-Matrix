@@ -16,6 +16,8 @@
 
 #include <hwlib.hpp>
 #include <array>
+#include <cstdlib>
+#include <ctime>
 
 
 using namespace hwlib::target;
@@ -43,20 +45,30 @@ class Buffer{
         {}
         
     
-    void write( hwlib::xy pos, uint8_t color = BLACK ){
-        uint8_t & tmp = dataport[pos.y % ROW_MAX][pos.x % MAT_WIDTH];
-        if( pos.y < ROW_MAX ) { tmp = (tmp & 0x0F) | (color << 0x04); }
-        else { tmp = (tmp & 0xF0) | color; }
+    void write( hwlib::xy pos, uint8_t color = WHITE ){
+        uint8_t & tmp_d = dataport[pos.y % ROW_MAX][pos.x % MAT_WIDTH];
+        if( pos.y < ROW_MAX ) { tmp_d = (tmp_d & 0x0F) | (color << 0x04); }
+        else { tmp_d = (tmp_d & 0xF0) | color; }
+    }
+    
+    void write_rand_col( hwlib::xy pos ){
+        uint8_t & tmp_d = dataport[pos.y % ROW_MAX][pos.x % MAT_WIDTH];
+        srand(static_cast<unsigned int>(time(0)));
+        uint8_t color = ( (rand()+1) & 0x77 );
+        if( pos.y < ROW_MAX ) { tmp_d = (tmp_d & 0x0F) | (color << 0x04); }
+        else { tmp_d = (tmp_d & 0xF0) | color; }
     }
         
     void sketch(){
-        for( size_t i = 0; i < dataport.size(); i++ ){
+        uint8_t tmp_i = 0;
+        for( auto i = dataport.begin(); i != dataport.end(); i++ ){
         oe.write( 1 );
         oe.flush(); 
-        rows.write( i );
+        rows.write( tmp_i );
         rows.flush();
+        tmp_i++;
    
-        for( auto j = dataport[i].begin(); j != dataport[i].end(); j++  ){
+        for( auto j = i->begin(); j != i->end(); j++  ){
             clk.write( 0 );
             clk.flush();
             
@@ -68,7 +80,7 @@ class Buffer{
             clk.write( 1 );
             clk.flush();
             }
-        
+            
         lat.write( 1 );
         lat.flush();
         oe.write( 0 );

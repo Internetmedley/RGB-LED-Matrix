@@ -3,12 +3,15 @@
 
 #include "buffer.hpp"
 
+namespace matrix{
+
 class Pixels{
 private:
     Buffer & b;
     
 public:
-    Pixel( )
+    Pixel( Buffer & buf ): b( buffer) {}
+    
     
     
     
@@ -23,7 +26,7 @@ public:
     
     
 };
-
+}
 
 
 
