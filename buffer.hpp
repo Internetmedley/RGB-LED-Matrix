@@ -51,13 +51,13 @@ class Buffer{
         else { tmp_d = (tmp_d & 0xF0) | color; }
     }
     
-    void write_rand_col( hwlib::xy pos ){
+    /*void write_rand_col( hwlib::xy pos ){
         uint8_t & tmp_d = dataport[pos.y % ROW_MAX][pos.x % MAT_WIDTH];
         srand(static_cast<unsigned int>(time(0)));
         uint8_t color = ( (rand()+1) & 0x77 );
         if( pos.y < ROW_MAX ) { tmp_d = (tmp_d & 0x0F) | (color << 0x04); }
         else { tmp_d = (tmp_d & 0xF0) | color; }
-    }
+    }*/
         
     void sketch(){
         uint8_t tmp_i = 0;
