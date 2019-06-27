@@ -23,178 +23,18 @@ int main(){
     auto lat = target::pin_out( target::pins::d10 );
     auto clk = target::pin_out( target::pins::d11 );
     
-    
-    struct uint4_t{
-        unsigned b : 4;
-    };
-    
-    struct uint3_t{
-        unsigned b : 3;
-    };
+    auto rows = hwlib::port_out_from( d, c, b, a );
+    auto rgb1 = hwlib::port_out_from( b1, g1, r1 );
+    auto rgb2 = hwlib::port_out_from( b2, g2, r2 );
+
     
     //uint8_t duty_cycle = 0x00;
     
-    Buffer buf( lat, oe, clk );
-    
-    buf += hwlib::xy( 0, 0 );
-    
-    auto rows = hwlib::port_out_from( a, b, c, d );
-    auto rgb1 = hwlib::port_out_from( b1, g1, r1 );
-    auto rgb2 = hwlib::port_out_from( b2, g2, r2 );
-    
-    rows.write( 0 );
-    rows.flush();
-    rgb1.write( 0 );
-    rgb1.flush();
-    rgb2.write( 0 );
-    rgb2.flush();
-    clk.write( 0 );
-    clk.flush();
-    lat.write( 0 );
-    lat.flush();
-    oe.write( 0 );
-    oe.flush();
-    
-    /*for( auto i = 0; i < 63; i ++ ){
-        clk.write( 0 );
-        clk.flush();
-        clk.write( 1 );
-        clk.flush();
-    }
-    lat.write( 1 );
-    lat.flush();*/
-    
-    
-
-    hwlib::wait_ms( 1000 );
-
-    /*for( size_t i = 0; i < buf.dataport.size(); i++ ){
-        for( size_t j = 0; j < buf.dataport[i].size(); j++ ){
-            hwlib::cout << "waarde op [" << i << "]" << "[" << j << "]: ";
-            hwlib::cout << buf.dataport[i][j] << '\n';
-        }
-    }*/
-    
-    //uint8_t index = 16;
-    
-    rgb1.write( 0 );
-    rgb2.write( 0 );
-    
-    for( int i = 0; i < 16; i++ ){
-        lat.write( 0 );
-        lat.flush();
-        oe.write( 0 );
-        oe.flush();
-        rows.write( i );
-        rows.flush();
-        for( int j = 0; j < 64; j++ ){
-            clk.write( 1 );
-            clk.flush();
-            clk.write( 0 );
-            clk.flush();
-        }
-        lat.write( 1 );
-        lat.flush();
-        oe.write( 1 );
-        oe.flush();
-    }
-    lat.write( 0 );
-    lat.flush();
-    oe.write( 0 );
-    oe.flush();
-    clk.write( 0 );
-    clk.flush();
-    
+    matrix::Buffer buf( lat, oe, clk, rows, rgb1, rgb2 );
+    buf.write( hwlib::xy(15, 15), WHITE );
     for( ;; ){
-        for( size_t i = 0; i < buf.dataport.size(); i++ ){
-            oe.write( 1 );
-            oe.flush(); 
-            rows.write( i );
-            rows.flush();
-       
-            for( size_t j = 0; j < buf.dataport[i].size(); j++  ){
-                clk.write( 0 );
-                clk.flush();
-                
-                rgb1.write( (buf.dataport[i][j] >> 0x04) );
-                rgb1.flush();
-                //hwlib::cout << "RGB1: " << ( *j >> 0x04) << '\n';
-                rgb2.write( (buf.dataport[i][j] & 0x07) );
-                rgb2.flush();
-                //hwlib::cout << "RGB2: " << ( *j & 0x04) << '\n';
-                //hwlib::cout << "waarde voor RGB1: " << ( buf.dataport[i][j] >> 0x04 ) << '\n';
-                //hwlib::cout << "waarde voor RGB2: " << ( buf.dataport[i][j] & 0x07 ) << '\n';
-                
-                clk.write( 1 );
-                clk.flush();
-                }
-            
-            lat.write( 1 );
-            lat.flush();
-            oe.write( 0 );
-            oe.flush();
-            lat.write( 0 );
-            lat.flush();
-            hwlib::wait_us( 256 );
-            }
-            
-        }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        buf.sketch();
+    }
     
-    /*for (;;){
-        for ( unsigned int i = 0; i <= 5; i++ ){
-            oe.write( 0 );
-            oe.flush();
-            
-            clk.write( 0 );
-            clk.flush();
-            
-            rows.write( row_data.b );
-            rows.flush();
-            row_data.b++;
-            
-            rgb1.write( rgb1_data.b );
-            rgb1.flush();
-            rgb1_data.b++;
-            
-            rgb2.write( rgb2_data.b );
-            rgb2.flush();
-            rgb2_data.b++;
-            
-            clk.write( 1 );
-            clk.flush();
-            hwlib::wait_ms( 10 );
-            
-            lat.write( 1 );
-            hwlib::wait_ms( 20 );
-            lat.write( 0 );
-            
-            hwlib::wait_ms( 100 );
-            oe.write( 1 );
-            oe.flush();
-        }
-    }*/
-
-    return  0;
+    return 0;
 }
