@@ -32,6 +32,7 @@ int main(){
     
     matrix::Buffer buf( lat, oe, clk, rows, rgb1, rgb2 );
     buf.write( hwlib::xy(15, 15), WHITE );
+    buf.write_rand_col( hwlib::xy(15, 16) );
     for( ;; ){
         buf.sketch();
     }
