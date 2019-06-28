@@ -46,12 +46,12 @@ class Buffer{
         
     
     void write( hwlib::xy pos, uint8_t color = WHITE ){
-        //uint8_t & tmp_d = dataport[pos.y % ROW_MAX][pos.x % MAT_WIDTH];
+        uint8_t & tmp_d = dataport[pos.y % ROW_MAX][pos.x % MAT_WIDTH];
         if( pos.y < ROW_MAX ){ 
-            dataport[pos.y][pos.x % MAT_WIDTH] = (dataport[pos.y][pos.x % MAT_WIDTH] & 0x0F) | (color << 0x04); 
+            tmp_d = ((tmp_d & 0x0F) | (color << 0x04)); 
         }
         else { 
-            dataport[pos.y % ROW_MAX][pos.x % MAT_WIDTH] = (dataport[pos.y % ROW_MAX][pos.x % MAT_WIDTH] & 0xF0) | color; 
+            tmp_d = ((tmp_d & 0xF0) | color); 
         }
     }
     
@@ -64,15 +64,15 @@ class Buffer{
     }*/
         
     void sketch(){
-        //uint8_t tmp_i = 0;
-        for( size_t i = 0; i < dataport.size(); i++ ){
-        oe.write( 0 );
+        uint8_t tmp_i = 0;
+        for( auto i = dataport.begin(); i !=dataport.end(); i++ ){
+        oe.write( 1 );
         oe.flush(); 
-        rows.write( i );
+        rows.write( tmp_i );
         rows.flush();
-        //tmp_i++;
+        tmp_i++;
    
-        for( auto j = dataport[i].begin(); j != dataport[i].end(); j++  ){
+        for( auto j = i->begin(); j != i->end(); j++  ){
             clk.write( 0 );
             clk.flush();
             
@@ -87,11 +87,11 @@ class Buffer{
             
         lat.write( 1 );
         lat.flush();
-        //oe.write( 0 );
-        //oe.flush();
+        oe.write( 0 );
+        oe.flush();
         lat.write( 0 );
         lat.flush();
-        //hwlib::wait_us( 256 );
+        hwlib::wait_us( 256 );
         }
     }
 };

@@ -1,8 +1,6 @@
 #ifndef PIXELS_HPP
 #define PIXELS_HPP
 
-#include "buffer.hpp"
-
 namespace matrix{
 
 class Drawable{
@@ -34,9 +32,9 @@ private:
     
 public:
     Line( hwlib::xy start, hwlib::xy end, uint8_t color = WHITE ):
-    Drawable( start ),
-    end( end ),
-    col( color )
+        Drawable( start ),
+        end( end ),
+        col( color )
     {}
     
     void draw( Buffer & b ) override { 
@@ -107,21 +105,21 @@ private:
     
 public:
     Rectangle( hwlib::xy start, hwlib::xy end, uint8_t color = WHITE ):
-    Drawable( start ),
-    end( end ),
-    col( color )
+        Drawable( start ),
+        end( end ),
+        col( color )
     {}
     
     void draw( Buffer & b ) override { 
-        for( auto y = start.y; y <= end.y; y++ ){
+        /*for( auto y = start.y; y <= end.y; y++ ){
             for( auto x = start.x; x <= end.x; x++ ){
                 b.write( hwlib::xy( x, y ), col );
             }
-        }
+        }*/
         
-        //for( auto y = start.y; y <= end.y; y++ ){
-        //    Line( hwlib::xy(start.x, y), hwlib::xy(end.x, y) ).draw( b );
-        //}
+        for( auto y = start.y; y <= end.y; y++ ){
+            Line( hwlib::xy(start.x, y), hwlib::xy(end.x+1, y), col ).draw( b );
+        }
     }
 };
 
@@ -136,13 +134,13 @@ private:
     
 public:
     EmptyRectangle( hwlib::xy start, hwlib::xy end, uint8_t color = WHITE ):
-    Drawable( start ),
-    end( end ),
-    col( color ),
-    top( start, hwlib::xy(end.x, start.y) ),
-    bottom( hwlib::xy(start.x, end.y), end ),
-    left( start,  hwlib::xy(start.x, end.y) ),
-    right( hwlib::xy(end.x, start.y), end ) 
+        Drawable( start ),
+        end( end ),
+        col( color ),
+        top( start, hwlib::xy(end.x, start.y), color ),
+        bottom( hwlib::xy(start.x, end.y), end, color ),
+        left( start, hwlib::xy(start.x, end.y), color ),
+        right( hwlib::xy(end.x, start.y), hwlib::xy(end.x, end.y+1), color ) 
     {}
     
     void draw( Buffer & b ) override { 
@@ -153,6 +151,113 @@ public:
     }
 };
 
-}
+// ==========================================================================
+//
+// circle
+//
+// ==========================================================================
+
+/// a circle object                   
+class Circle : public Drawable {
+private:   
+   uint_fast16_t  radius;
+   uint8_t        col;
+   
+public:
+   /// create a circle object of a specific color
+   Circle( 
+      hwlib::xy start, 
+      uint_fast16_t radius, 
+      uint8_t color = WHITE
+   )
+      : Drawable{ start }, radius{ radius }, col{ color }
+   {}     
+   
+   void draw( Buffer & b ) override { 
+
+      // don't draw anything when the size would be 0 
+      if( radius < 1 ){
+         return;       
+      }
+   
+      // http://en.wikipedia.org/wiki/Midpoint_circle_algorithm
+      
+      //color col = use_foreground ? w.foreground : ink;      
+   
+      int_fast16_t fx = 1 - radius;
+      int_fast16_t ddFx = 1;
+      int_fast16_t ddFy = -2 * radius;
+      int_fast16_t x = 0;
+      int_fast16_t y = radius;
+    
+      // top and bottom
+      b.write( start + hwlib::xy( 0, + radius ), col );
+      b.write( start + hwlib::xy( 0, - radius ), col );
+
+      // left and right 
+      b.write( start + hwlib::xy( + radius, 0 ), col );
+      b.write( start + hwlib::xy( - radius, 0 ), col );
+         
+      // filled circle
+      if(0) {
+   
+         // top and bottom
+         b.write( start + hwlib::xy( 0, + radius ), col );
+         b.write( start + hwlib::xy( 0, - radius ), col );
+
+         // left and right
+         Line(  
+              start - hwlib::xy( radius, 0 ), 
+              start + hwlib::xy( radius, 0 ), 
+              col 
+          ).draw( b );
+      } 
+    
+      while( x < y ){
+      
+         // calculate next outer circle point
+         if( fx >= 0 ){
+           y--;
+           ddFy += 2;
+           fx += ddFy;
+         }
+         x++;
+         ddFx += 2;
+         fx += ddFx;   
+                    
+         b.write( start + hwlib::xy( + x, + y ), col );
+         b.write( start + hwlib::xy( - x, + y ), col );
+         b.write( start + hwlib::xy( + x, - y ), col );
+         b.write( start + hwlib::xy( - x, - y ), col );
+         b.write( start + hwlib::xy( + y, + x ), col );
+         b.write( start + hwlib::xy( - y, + x ), col );
+         b.write( start + hwlib::xy( + y, - x ), col );
+         b.write( start + hwlib::xy( - y, - x ), col );
+            
+         // filled circle
+         if(0) {
+            Line( 
+               start + hwlib::xy( -x,  y ), 
+               start + hwlib::xy(  x,  y ), 
+               col ).draw( b );
+            Line( 
+               start + hwlib::xy( -x, -y ), 
+               start + hwlib::xy(  x, -y ), 
+               col ).draw( b );
+            Line( 
+               start + hwlib::xy( -y,  x ), 
+               start + hwlib::xy(  y,  x ), 
+               col ).draw( b );
+            Line( 
+               start + hwlib::xy( -y, -x ), 
+               start + hwlib::xy(  y, -x ), 
+               col ).draw( b );
+         }
+      }
+   }   
+    
+}; // class circle
+
+}  //namespace matrix
 
 #endif //PIXELS_HPP 
