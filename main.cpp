@@ -1,5 +1,6 @@
 #include <hwlib.hpp>
 #include "buffer.hpp"
+#include "pixel.hpp"
 #include <array>
 
 // ===========================================================================
@@ -31,10 +32,16 @@ int main(){
     //uint8_t duty_cycle = 0x00;
     
     matrix::Buffer buf( lat, oe, clk, rows, rgb1, rgb2 );
-    buf.write( hwlib::xy(15, 15), WHITE );
+    
     //buf.write_rand_col( hwlib::xy(15, 16) );
     matrix::EmptyRectangle rect1( hwlib::xy(15, 15), hwlib::xy(20, 20), RED );
-    matrix::Rectangle rect2( hwlib::xy(13, 8), hwlib::xy(18, 17), RED );
+    matrix::Rectangle rect2( hwlib::xy(13, 8), hwlib::xy(18, 17), PURPLE );
+    matrix::Line line1( hwlib::xy(5, 2), hwlib::xy(12, 30), GREEN );
+    
+    //rect1.draw( buf );
+    rect2.draw( buf );
+    //line1.draw( buf );
+    //buf.write( hwlib::xy(15, 15), WHITE );
     
     for( ;; ){
         buf.sketch();

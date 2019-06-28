@@ -6,13 +6,13 @@
 namespace matrix{
 
 class Drawable{
-private:
+protected:
     hwlib::xy start;
     
 public:
     Drawable( const hwlib::xy & start ): start( start ) {}
     
-    virtual void draw() = 0;
+    virtual void draw( Buffer & b ) = 0;
 
 };
 
@@ -21,6 +21,16 @@ class Line : public Drawable{
 private:
     hwlib::xy end;
     uint8_t col;
+    
+    static void swap( int_fast16_t & a, int_fast16_t & b ){
+        auto t = a;
+        a = b;
+        b = t;
+    }
+    
+    static int_fast16_t abs( int_fast16_t x ){
+      return x >= 0 ? x : -x;
+   }
     
 public:
     Line( hwlib::xy start, hwlib::xy end, uint8_t color = WHITE ):
@@ -78,7 +88,7 @@ public:
             yDraw = y;
          }
          
-         b.write( xy( xDraw, yDraw ), col );
+        b.write( hwlib::xy( xDraw, yDraw ), col );
 
          if( E > 0 ){
             E += TwoDyTwoDx; //E += 2*Dy - 2*Dx;
@@ -108,6 +118,10 @@ public:
                 b.write( hwlib::xy( x, y ), col );
             }
         }
+        
+        //for( auto y = start.y; y <= end.y; y++ ){
+        //    Line( hwlib::xy(start.x, y), hwlib::xy(end.x, y) ).draw( b );
+        //}
     }
 };
 
@@ -121,14 +135,14 @@ private:
     Line right;
     
 public:
-    Rectangle( hwlib::xy start, hwlib::xy end, uint8_t color = WHITE ):
+    EmptyRectangle( hwlib::xy start, hwlib::xy end, uint8_t color = WHITE ):
     Drawable( start ),
     end( end ),
     col( color ),
     top( start, hwlib::xy(end.x, start.y) ),
     bottom( hwlib::xy(start.x, end.y), end ),
     left( start,  hwlib::xy(start.x, end.y) ),
-    right( hwlib:;xy(end.x, start.y), end ) 
+    right( hwlib::xy(end.x, start.y), end ) 
     {}
     
     void draw( Buffer & b ) override { 
@@ -138,6 +152,7 @@ public:
         right.draw( b );
     }
 };
+
 }
 
 #endif //PIXELS_HPP 
