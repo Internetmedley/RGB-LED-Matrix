@@ -38,7 +38,7 @@ int main(){
     //matrix::Rectangle rect2( hwlib::xy(13, 8), hwlib::xy(18, 17), PURPLE );
     //matrix::Line line1( hwlib::xy(5, 2), hwlib::xy(60, 30), YELLOW );
     //matrix::Circle circle1( hwlib::xy( 40, 16), 3, PURPLE );
-    matrix::EmptyRectangle outline1( hwlib::xy(4, 10), hwlib::xy(27, 55), WHITE );                                                                                                           
+    matrix::EmptyRectangle outline1( hwlib::xy(10, 4), hwlib::xy(55, 27), WHITE );                                                                                                           
     
     //rect1.draw( buf );
     //rect2.draw( buf );

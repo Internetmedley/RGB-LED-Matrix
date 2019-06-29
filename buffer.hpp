@@ -46,14 +46,17 @@ class Buffer{
         
     
     void write( hwlib::xy pos, uint8_t color = WHITE ){
+        if( (pos.x >= 0 && pos.x <= 64) && (pos.y >= 0 && pos.y <= 32) ){
         uint8_t & tmp_d = dataport[pos.y % ROW_MAX][pos.x % MAT_WIDTH];
-        if( pos.y < ROW_MAX ){ 
-            tmp_d = ((tmp_d & 0x0F) | (color << 0x04)); 
-        }
-        else { 
-            tmp_d = ((tmp_d & 0xF0) | color); 
+            if( pos.y < ROW_MAX ){ 
+                tmp_d = ((tmp_d & 0x0F) | (color << 0x04)); 
+            }
+            else { 
+                tmp_d = ((tmp_d & 0xF0) | color); 
+            }
         }
     }
+    
     
     /*void write_rand_col( hwlib::xy pos ){
         uint8_t & tmp_d = dataport[pos.y % ROW_MAX][pos.x % MAT_WIDTH];
