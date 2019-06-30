@@ -66,7 +66,6 @@ class Buffer{
         if( is_within_bounds(pos) ){
             return dataport[pos.y % ROW_MAX][pos.x];
         }
-        break;
     }
     
     void clear(){

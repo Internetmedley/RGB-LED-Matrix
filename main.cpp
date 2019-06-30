@@ -1,6 +1,7 @@
 #include <hwlib.hpp>
 #include "buffer.hpp"
 #include "pixel.hpp"
+#include "tetromino.hpp"
 #include <array>
 
 // ===========================================================================
@@ -47,6 +48,8 @@ int main(){
     //circle1.draw( buf );
     outline1.draw( buf );
     outline2.draw( buf );
+    tetris::I_shape I;
+    I.draw( buf );
     
     for( ;; ){
         buf.sketch();
