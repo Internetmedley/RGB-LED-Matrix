@@ -35,6 +35,11 @@ class Buffer{
         hwlib::port_out & rgb2;
         std::array<std::array<uint8_t, MAT_WIDTH>, ROW_MAX> dataport;
         
+    bool is_within_bounds( const hwlib::xy & pos ){
+        return (pos.x >= 0 && pos.x <= MAT_WIDTH) && (pos.y >= 0 && pos.y <= MAT_HEIGHT);
+    }
+    
+        
     public:
         Buffer( pin_out & latch, pin_out & out_enable, pin_out & clock, 
                 hwlib::port_out & rows_port, hwlib::port_out & rgb1_port,
@@ -44,10 +49,10 @@ class Buffer{
         dataport( {{ 0 }} )
         {}
         
-    
+        
     void write( hwlib::xy pos, uint8_t color = WHITE ){
-        if( (pos.x >= 0 && pos.x <= 64) && (pos.y >= 0 && pos.y <= 32) ){
-        uint8_t & tmp_d = dataport[pos.y % ROW_MAX][pos.x % MAT_WIDTH];
+        if( is_within_bounds(pos) ){
+        auto & tmp_d = dataport[pos.y % ROW_MAX][pos.x];
             if( pos.y < ROW_MAX ){ 
                 tmp_d = ((tmp_d & 0x0F) | (color << 0x04)); 
             }
@@ -57,6 +62,16 @@ class Buffer{
         }
     }
     
+    uint8_t get( hwlib::xy pos ){
+        if( is_within_bounds(pos) ){
+            return dataport[pos.y % ROW_MAX][pos.x];
+        }
+        break;
+    }
+    
+    void clear(){
+        dataport = {{ 0 }};
+    }
     
     /*void write_rand_col( hwlib::xy pos ){
         uint8_t & tmp_d = dataport[pos.y % ROW_MAX][pos.x % MAT_WIDTH];

@@ -40,15 +40,8 @@ int main(){
     //matrix::Circle circle1( hwlib::xy( 40, 16), 3, PURPLE );
     matrix::EmptyRectangle outline1( hwlib::xy(11, 5), hwlib::xy(52, 26), WHITE );    
     matrix::EmptyRectangle outline2( hwlib::xy(10, 4), hwlib::xy(53, 27), WHITE ); 
-    matrix::EmptyRectangle rect1( hwlib::xy(12, 6), hwlib::xy(13, 7), CYAN );
-    matrix::EmptyRectangle rect2( hwlib::xy(12, 8), hwlib::xy(13, 9), CYAN );
-    matrix::EmptyRectangle rect3( hwlib::xy(14, 6), hwlib::xy(15, 7), CYAN );
-    matrix::EmptyRectangle rect4( hwlib::xy(14, 8), hwlib::xy(15, 9), CYAN );
     
-    rect1.draw( buf );
-    rect2.draw( buf );
-    rect3.draw( buf );
-    rect4.draw( buf );
+    
     //rect2.draw( buf );
     //line1.draw( buf );
     //circle1.draw( buf );

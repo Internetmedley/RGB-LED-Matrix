@@ -6,9 +6,10 @@ namespace matrix{
 class Drawable{
 protected:
     hwlib::xy start;
+    uint8_t col;
     
 public:
-    Drawable( const hwlib::xy & start ): start( start ) {}
+    Drawable( const hwlib::xy & start, uint8_t color ): start( start ), col( color ) {}
     
     virtual void draw( Buffer & b ) = 0;
 
@@ -18,7 +19,7 @@ public:
 class Line : public Drawable{
 private:
     hwlib::xy end;
-    uint8_t col;
+    //uint8_t col;
     
     static void swap( int_fast16_t & a, int_fast16_t & b ){
         auto t = a;
@@ -32,9 +33,9 @@ private:
     
 public:
     Line( hwlib::xy start, hwlib::xy end, uint8_t color = WHITE ):
-        Drawable( start ),
-        end( end ),
-        col( color )
+        Drawable( start, color ),
+        end( end )
+        //col( color )
     {}
     
     void draw( Buffer & b ) override { 
@@ -101,13 +102,13 @@ public:
 class Rectangle : public Drawable{
 private:
     hwlib::xy end;
-    uint8_t col;
+    //uint8_t col;
     
 public:
     Rectangle( hwlib::xy start, hwlib::xy end, uint8_t color = WHITE ):
-        Drawable( start ),
-        end( end ),
-        col( color )
+        Drawable( start, color ),
+        end( end )
+        //col( color )
     {}
     
     void draw( Buffer & b ) override { 
@@ -126,7 +127,7 @@ public:
 class EmptyRectangle : public Drawable{
 private:
     hwlib::xy end;
-    uint8_t col;
+    //uint8_t col;
     Line top;
     Line bottom;
     Line left;
@@ -134,9 +135,9 @@ private:
     
 public:
     EmptyRectangle( hwlib::xy start, hwlib::xy end, uint8_t color = WHITE ):
-        Drawable( start ),
+        Drawable( start, color ),
         end( end ),
-        col( color ),
+        //col( color ),
         top( start, hwlib::xy(end.x, start.y), color ),
         bottom( hwlib::xy(start.x, end.y), end, color ),
         left( start, hwlib::xy(start.x, end.y), color ),
@@ -161,7 +162,7 @@ public:
 class Circle : public Drawable {
 private:   
    uint_fast16_t  radius;
-   uint8_t        col;
+   //uint8_t        col;
    
 public:
    /// create a circle object of a specific color
@@ -170,7 +171,7 @@ public:
       uint_fast16_t radius, 
       uint8_t color = WHITE
    )
-      : Drawable{ start }, radius{ radius }, col{ color }
+      : Drawable{ start, color }, radius{ radius }
    {}     
    
    void draw( Buffer & b ) override { 
