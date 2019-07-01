@@ -50,6 +50,91 @@ public:
     {}
 
 };
+
+class O_shape : public Tetromino{
+private:
+    
+
+public:
+    O_shape( hwlib::xy s = hwlib::xy(48, 14), uint8_t color = YELLOW ): 
+        Tetromino( hwlib::xy(s.x, s.y+2), hwlib::xy(s.x+1, s.y+3),
+                   hwlib::xy(s), hwlib::xy(s.x+1, s.y+1),
+                   hwlib::xy(s.x+2, s.y), hwlib::xy(s.x+3, s.y+1),
+                   hwlib::xy(s.x+2, s.y+2), hwlib::xy(s.x+3, s.y+3), color ) 
+    {}
+
+};
+
+class T_shape : public Tetromino{
+private:
+    
+
+public:
+    T_shape( hwlib::xy s = hwlib::xy(48, 12), uint8_t color = PURPLE ): 
+        Tetromino( hwlib::xy(s.x, s.y+4), hwlib::xy(s.x+1, s.y+5), 
+                   hwlib::xy(s), hwlib::xy(s.x+1, s.y+1), 
+                   hwlib::xy(s.x+2, s.y+2), hwlib::xy(s.x+3, s.y+3),
+                   hwlib::xy(s.x, s.y+2), hwlib::xy(s.x+1, s.y+3), color )
+    {}
+
+};
+
+class J_shape : public Tetromino{
+private:
+    
+
+public:
+    J_shape( hwlib::xy s = hwlib::xy(48, 12), uint8_t color = BLUE ): 
+        Tetromino( hwlib::xy(s.x, s.y+4), hwlib::xy(s.x+1, s.y+5), 
+                   hwlib::xy(s), hwlib::xy(s.x+1, s.y+1), 
+                   hwlib::xy(s.x+2, s.y), hwlib::xy(s.x+3, s.y+1),
+                   hwlib::xy(s.x, s.y+2), hwlib::xy(s.x+1, s.y+3), color )
+    {}
+
+};
+
+class L_shape : public Tetromino{
+private:
+    
+
+public:
+    L_shape( hwlib::xy s = hwlib::xy(48, 12), uint8_t color = WHITE ): 
+        Tetromino( hwlib::xy(s.x, s.y+4), hwlib::xy(s.x+1, s.y+5), 
+                   hwlib::xy(s), hwlib::xy(s.x+1, s.y+1), 
+                   hwlib::xy(s.x+2, s.y+4), hwlib::xy(s.x+3, s.y+5),
+                   hwlib::xy(s.x, s.y+2), hwlib::xy(s.x+1, s.y+3), color )
+    {}
+
+};
+
+class S_shape : public Tetromino{
+private:
+    
+
+public:
+    S_shape( hwlib::xy s = hwlib::xy(48, 12), uint8_t color = GREEN ): 
+        Tetromino( hwlib::xy(s.x, s.y+2), hwlib::xy(s.x+1, s.y+3),
+                   hwlib::xy(s), hwlib::xy(s.x+1, s.y+1), 
+                   hwlib::xy(s.x+2, s.y+4), hwlib::xy(s.x+3, s.y+5), 
+                   hwlib::xy(s.x+2, s.y+2), hwlib::xy(s.x+3, s.y+3), color )
+    {}
+
+};
+
+class Z_shape : public Tetromino{
+private:
+    
+
+public:
+    Z_shape( hwlib::xy s = hwlib::xy(48, 12), uint8_t color = RED ): 
+        Tetromino( hwlib::xy(s.x, s.y+4), hwlib::xy(s.x+1, s.y+5), 
+                   hwlib::xy(s.x+2, s.y), hwlib::xy(s.x+3, s.y+1), 
+                   hwlib::xy(s.x+2, s.y+2), hwlib::xy(s.x+3, s.y+3),
+                   hwlib::xy(s.x, s.y+2), hwlib::xy(s.x+1, s.y+3), color )
+    {}
+
+};
+
 }
 
 
