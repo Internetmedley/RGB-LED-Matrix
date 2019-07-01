@@ -3,6 +3,11 @@
 #include "pixel.hpp"
 #include "tetromino.hpp"
 #include <array>
+#include <vector>
+#include <stdio.h>      /* printf, scanf, puts, NULL */
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
+#include <algorithm> 
 
 // ===========================================================================
 
@@ -42,20 +47,37 @@ int main(){
     matrix::EmptyRectangle outline1( hwlib::xy(11, 5), hwlib::xy(52, 26), WHITE );    
     matrix::EmptyRectangle outline2( hwlib::xy(10, 4), hwlib::xy(53, 27), WHITE ); 
     tetris::I_shape I( hwlib::xy(12, 6) );
-    tetris::O_shape O( hwlib::xy(31, 20) );
-    tetris::T_shape T( hwlib::xy(20, 12) );
-    tetris::Z_shape Z( hwlib::xy(13, 6) );
+    tetris::O_shape O( hwlib::xy(32, 20) );
+    tetris::T_shape T( hwlib::xy(20, 14) );
+    tetris::Z_shape Z( hwlib::xy(14, 6) );
     tetris::S_shape S( hwlib::xy(20, 10) );
-    tetris::L_shape L( hwlib::xy(12, 6) );
-    tetris::J_shape J( hwlib::xy(48, 22) );
+    tetris::L_shape L( hwlib::xy(40, 6) );
+    tetris::J_shape J( hwlib::xy(48, 20) );
     
+    hwlib::wait_ms(1000);
     
+    std::array<tetris::Tetromino *, 7> objects = { &I, &O, &T, &Z, &S, &L, &J };
+    for(;;){
+    std::random_shuffle(objects.begin(), objects.end());
+    hwlib::cout << "random: " << std::rand() << '\n';
+        for( auto & i : objects ){
+            hwlib::cout << int(i->get_color()) << '\n';
+            
+        }
+        hwlib::wait_ms(500);
+    }
+    
+    std::random_shuffle(objects.begin(), objects.end());
+    hwlib::cout << "random: " << std::rand() << '\n';
+    for( auto & i : objects ){
+        hwlib::cout << int(i->get_color()) << '\n';
+    }
     
     //rect2.draw( buf );
     //line1.draw( buf );
     //circle1.draw( buf );
     outline1.draw( buf );
-    outline2.draw( buf );
+    //outline2.draw( buf );
     I.draw( buf );
     O.draw( buf );
     T.draw( buf );
