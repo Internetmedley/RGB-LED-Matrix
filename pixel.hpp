@@ -12,7 +12,7 @@ public:
     Drawable( const hwlib::xy & start, uint8_t color ): start( start ), col( color ) {}
     
     virtual void draw( Buffer & b ) = 0;
-
+    virtual void update(){};
 };
 
 
@@ -112,15 +112,15 @@ public:
     {}
     
     void draw( Buffer & b ) override { 
-        /*for( auto y = start.y; y <= end.y; y++ ){
+        for( auto y = start.y; y <= end.y; y++ ){
             for( auto x = start.x; x <= end.x; x++ ){
                 b.write( hwlib::xy( x, y ), col );
             }
-        }*/
-        
-        for( auto y = start.y; y <= end.y; y++ ){
-            Line( hwlib::xy(start.x, y), hwlib::xy(end.x+1, y), col ).draw( b );
         }
+        
+        //for( auto y = start.y; y <= end.y; y++ ){
+        //    Line( hwlib::xy(start.x, y), hwlib::xy(end.x+1, y), col ).draw( b );
+        //}
     }
 };
 

@@ -16,6 +16,7 @@
 
 #include <hwlib.hpp>
 #include <array>
+#include "tetromino.hpp"
 //#include <cstdlib>
 //#include <ctime>
 
@@ -35,11 +36,6 @@ class Buffer{
         hwlib::port_out & rgb2;
         std::array<std::array<uint8_t, MAT_WIDTH>, ROW_MAX> dataport;
         
-    bool is_within_bounds( const hwlib::xy & pos ){
-        return (pos.x >= 0 && pos.x <= MAT_WIDTH) && (pos.y >= 0 && pos.y <= MAT_HEIGHT);
-    }
-    
-        
     public:
         Buffer( pin_out & latch, pin_out & out_enable, pin_out & clock, 
                 hwlib::port_out & rows_port, hwlib::port_out & rgb1_port,
@@ -49,28 +45,46 @@ class Buffer{
         dataport( {{ 0 }} )
         {}
         
+    bool is_within_bounds( const hwlib::xy & pos ){
+        return (pos.x >= 0 && pos.x <= MAT_WIDTH) && (pos.y >= 0 && pos.y <= MAT_HEIGHT);
+    }
         
-    void write( hwlib::xy pos, uint8_t color = WHITE ){
-        if( is_within_bounds(pos) ){
-        auto & tmp_d = dataport[pos.y % ROW_MAX][pos.x];
-            if( pos.y < ROW_MAX ){ 
-                tmp_d = ((tmp_d & 0x0F) | (color << 0x04)); 
-            }
-            else { 
-                tmp_d = ((tmp_d & 0xF0) | color); 
-            }
-        }
+    uint8_t get( hwlib::xy pos ){
+        return (pos.y < ROW_MAX) ? (tmp_d & 0x0F) : (tmp_d & 0xF0);
     }
     
-    uint8_t get( hwlib::xy pos ){
+    bool is_occupied( hwlib::xy pos ){
         if( is_within_bounds(pos) ){
-            return dataport[pos.y % ROW_MAX][pos.x];
+            auto & tmp_d = dataport[pos.y % ROW_MAX][pos.x];
+            return (pos.y < ROW_MAX) ? (tmp_d & 0x0F) > 0 : (tmp_d & 0xF0) > 0;
+        }
+        else{
+            return true;
         }
     }
     
     void clear(){
         dataport = {{ 0 }};
     }
+    
+    bool is_updatable( tetris::Tetromino & t ){
+        return 
+    }
+        
+    void write( hwlib::xy pos, uint8_t color = WHITE ){
+        if( is_within_bounds(pos) ){
+            auto & tmp_d = dataport[pos.y % ROW_MAX][pos.x];
+            tmp_d = (pos.y < ROW_MAX) ? ((tmp_d & 0x0F) | (color << 0x04)) : (tmp_d & 0xF0) | color;
+            /*if( pos.y < ROW_MAX ){ 
+                tmp_d = ((tmp_d & 0x0F) | (color << 0x04)); 
+            }
+            else { 
+                tmp_d = ((tmp_d & 0xF0) | color); 
+            }*/
+        }
+    }
+    
+    
     
     /*void write_rand_col( hwlib::xy pos ){
         uint8_t & tmp_d = dataport[pos.y % ROW_MAX][pos.x % MAT_WIDTH];
