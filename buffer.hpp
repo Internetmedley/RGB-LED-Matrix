@@ -16,7 +16,7 @@
 
 #include <hwlib.hpp>
 #include <array>
-#include "tetromino.hpp"
+//#include "tetromino.hpp"
 //#include <cstdlib>
 //#include <ctime>
 
@@ -46,35 +46,33 @@ class Buffer{
         {}
         
     bool is_within_bounds( const hwlib::xy & pos ){
-        return (pos.x >= 0 && pos.x <= MAT_WIDTH) && (pos.y >= 0 && pos.y <= MAT_HEIGHT);
+        return ((pos.x >= 0 && pos.x <= MAT_WIDTH) && (pos.y >= 0 && pos.y <= MAT_HEIGHT));
     }
         
     uint8_t get( hwlib::xy pos ){
-        return (pos.y < ROW_MAX) ? (tmp_d & 0x0F) : (tmp_d & 0xF0);
+        auto & tmp_d = dataport[pos.y % ROW_MAX][pos.x];
+        return ((pos.y < ROW_MAX) ? (tmp_d & 0x0F) : (tmp_d & 0xF0));
     }
     
     bool is_occupied( hwlib::xy pos ){
         if( is_within_bounds(pos) ){
             auto & tmp_d = dataport[pos.y % ROW_MAX][pos.x];
-            return (pos.y < ROW_MAX) ? (tmp_d & 0x0F) > 0 : (tmp_d & 0xF0) > 0;
+            return ((pos.y < ROW_MAX) ? ((tmp_d & 0x0F) > 0) : ((tmp_d & 0xF0) > 0));
         }
         else{
             return true;
         }
     }
+
     
-    void clear(){
+     void clear(){
         dataport = {{ 0 }};
-    }
-    
-    bool is_updatable( tetris::Tetromino & t ){
-        return 
     }
         
     void write( hwlib::xy pos, uint8_t color = WHITE ){
         if( is_within_bounds(pos) ){
             auto & tmp_d = dataport[pos.y % ROW_MAX][pos.x];
-            tmp_d = (pos.y < ROW_MAX) ? ((tmp_d & 0x0F) | (color << 0x04)) : (tmp_d & 0xF0) | color;
+            tmp_d = ((pos.y < ROW_MAX) ? ((tmp_d & 0x0F) | (color << 0x04)) : (tmp_d & 0xF0) | color);
             /*if( pos.y < ROW_MAX ){ 
                 tmp_d = ((tmp_d & 0x0F) | (color << 0x04)); 
             }

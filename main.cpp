@@ -75,31 +75,25 @@ int main(){
         hwlib::wait_ms(500);
     }*/
     
-    //rect2.draw( buf );
-    //line1.draw( buf );
-    //circle1.draw( buf );
-    //outline1.draw( buf );
-    //outline2.draw( buf );
-    //I.draw( buf );
-    //O.draw( buf );
-    //T.draw( buf );
-    //Z.draw( buf );
-    //S.draw( buf );
-    //L.draw( buf );
-    //J.draw( buf );
     outline1.draw( buf );
     for( ;; ){
     std::random_shuffle(objects.begin(), objects.end());
         for( auto & i : objects ){
             i->draw( buf );
-            //i->draw( buf );
             for( auto x = 0; x < 30; x++ ){
-                
-                //i->update();
-                
-                buf.sketch();
+                for( auto j = 0; j < 10; j++ ){
+                    buf.sketch();
+                }
+                if( i->is_updatable( buf )){
+                    i->reset( buf );
+                    i->update();
+                    i->draw( buf );
+                }
+                for( auto j = 0; j < 10; j++ ){
+                    buf.sketch();
+                }
             }
-            i->reset( buf );
+           i->reset( buf ); 
         }
     }  
     

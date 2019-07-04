@@ -35,6 +35,7 @@ class Tetromino : public matrix::Drawable{
         b1_start = b1_start + speed;
         b2_start = b2_start + speed;
         b3_start = b3_start + speed;
+        anchor_end = anchor_end + speed;
         b1_end = b1_end + speed;
         b2_end = b2_end + speed;
         b3_end = b3_end + speed;
@@ -54,6 +55,13 @@ class Tetromino : public matrix::Drawable{
         matrix::Rectangle( b1_start, b1_end, BLACK ).draw( b );
         matrix::Rectangle( b2_start, b2_end, BLACK ).draw( b );
         matrix::Rectangle( b3_start, b3_end, BLACK ).draw( b );
+    }
+    
+    bool is_updatable( matrix::Buffer & b ) {
+        return (!b.is_occupied( start + speed ) && !b.is_occupied( anchor_end + speed ) &&
+               !b.is_occupied( b1_start + speed ) && !b.is_occupied( b1_end + speed ) &&
+               !b.is_occupied( b2_start + speed ) && !b.is_occupied( b2_end + speed ) &&
+               !b.is_occupied( b3_start + speed ) && !b.is_occupied( b3_end + speed ));
     }
     
     uint8_t get_color(){
