@@ -3,7 +3,7 @@
 #include "pixel.hpp"
 #include "tetromino.hpp"
 #include <array>
-#include <vector>
+
 #include <stdio.h>      /* printf, scanf, puts, NULL */
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
@@ -39,7 +39,6 @@ int main(){
     
     matrix::Buffer buf( lat, oe, clk, rows, rgb1, rgb2 );
     
-    //buf.write_rand_col( hwlib::xy(15, 16) );
     matrix::EmptyRectangle rect1( hwlib::xy(2, 15), hwlib::xy(14, 20), CYAN );
     matrix::Rectangle rect2( hwlib::xy(13, 8), hwlib::xy(18, 17), PURPLE );
     matrix::Line line1( hwlib::xy(5, 2), hwlib::xy(60, 30), YELLOW );
@@ -65,35 +64,31 @@ int main(){
     hwlib::wait_ms(1000);
     
     std::array<tetris::Tetromino *, 7> objects = { &I, &O, &T, &Z, &S, &L, &J };
-    /*for(;;){
-    std::random_shuffle(objects.begin(), objects.end());
-    hwlib::cout << "random: " << std::rand() << '\n';
-        for( auto & i : objects ){
-            hwlib::cout << int(i->get_color()) << '\n';
-            
-        }
-        hwlib::wait_ms(500);
-    }*/
     
     outline1.draw( buf );
+    outline2.draw( buf );
+    
+    hwlib::cout << buf.is_occupied( hwlib::xy(11, 6)) << '\n';
+    hwlib::cout << buf.is_occupied( hwlib::xy(12, 6)) << '\n';
+    hwlib::cout << tetris::I_shape( hwlib::xy(16, 6) ).is_updatable( buf ) << '\n';
+    
     for( ;; ){
     std::random_shuffle(objects.begin(), objects.end());
         for( auto & i : objects ){
             i->draw( buf );
-            for( auto x = 0; x < 30; x++ ){
+            while( i->is_updatable( buf ) ){
                 for( auto j = 0; j < 10; j++ ){
                     buf.sketch();
                 }
-                if( i->is_updatable( buf )){
-                    i->reset( buf );
-                    i->update();
-                    i->draw( buf );
-                }
+                i->forget( buf );
+                i->update();
+                i->draw( buf );
                 for( auto j = 0; j < 10; j++ ){
                     buf.sketch();
                 }
             }
-           i->reset( buf ); 
+           //i->forget( buf ); 
+           i->reset();
         }
     }  
     

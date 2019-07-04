@@ -8,9 +8,14 @@
 namespace tetris{
     
 class Tetromino : public matrix::Drawable{
+    private:
+    hwlib::xy orig_anchor_start, orig_anchor_end;
+    hwlib::xy orig_b1_start, orig_b1_end;
+    hwlib::xy orig_b2_start, orig_b2_end;
+    hwlib::xy orig_b3_start, orig_b3_end;
+    
     public:
-    //anchor is start from drawables
-    hwlib::xy anchor_end;
+    hwlib::xy anchor_end; //anchor_start is start from drawables
     hwlib::xy b1_start, b1_end;
     hwlib::xy b2_start, b2_end;
     hwlib::xy b3_start, b3_end;
@@ -22,23 +27,37 @@ class Tetromino : public matrix::Drawable{
                hwlib::xy b3_start,
                uint8_t color ):
         matrix::Drawable( anchor_start, color ),
-        anchor_end( anchor_start + hwlib::xy(1,1) ),
-        b1_start( b1_start ), b1_end( b1_start + hwlib::xy(1,1) ),
-        b2_start( b2_start ), b2_end( b2_start + hwlib::xy(1,1) ),
-        b3_start( b3_start ), b3_end( b3_start + hwlib::xy(1,1) ),
+        orig_anchor_start( anchor_start ), orig_anchor_end( anchor_end ),
+        orig_b1_start( b1_start ), orig_b1_end( b1_end ),
+        orig_b2_start( b2_start ), orig_b2_end( b2_end ),
+        orig_b3_start( b3_start ), orig_b3_end( b3_end ),
+        anchor_end( anchor_start + hwlib::xy(1, 1) ),
+        b1_start( b1_start ), b1_end( b1_start + hwlib::xy(1, 1) ),
+        b2_start( b2_start ), b2_end( b2_start + hwlib::xy(1, 1) ),
+        b3_start( b3_start ), b3_end( b3_start + hwlib::xy(1, 1) ),
         speed( hwlib::xy(-2, 0) )
     {}
     
+    void reset() {
+        start      = orig_anchor_start;
+        b1_start   = orig_b1_start;
+        b2_start   = orig_b2_start;
+        b3_start   = orig_b3_start;
+        anchor_end = orig_anchor_end;
+        b1_end     = orig_b1_end;
+        b2_end     = orig_b2_end;
+        b3_end     = orig_b3_end;
+    }
     
     void update() override {
-        start = start + speed;
-        b1_start = b1_start + speed;
-        b2_start = b2_start + speed;
-        b3_start = b3_start + speed;
+        start      = start + speed;
+        b1_start   = b1_start + speed;
+        b2_start   = b2_start + speed;
+        b3_start   = b3_start + speed;
         anchor_end = anchor_end + speed;
-        b1_end = b1_end + speed;
-        b2_end = b2_end + speed;
-        b3_end = b3_end + speed;
+        b1_end   = b1_end + speed;
+        b2_end   = b2_end + speed;
+        b3_end   = b3_end + speed;
     }
     
     //virtual void rotate();
@@ -50,7 +69,7 @@ class Tetromino : public matrix::Drawable{
         matrix::Rectangle( b3_start, b3_end, col ).draw( b );
     }
     
-    void reset( matrix::Buffer & b ) {
+    void forget( matrix::Buffer & b ) {
         matrix::Rectangle( start, anchor_end, BLACK ).draw( b );
         matrix::Rectangle( b1_start, b1_end, BLACK ).draw( b );
         matrix::Rectangle( b2_start, b2_end, BLACK ).draw( b );
@@ -58,11 +77,29 @@ class Tetromino : public matrix::Drawable{
     }
     
     bool is_updatable( matrix::Buffer & b ) {
-        return (!b.is_occupied( start + speed ) && !b.is_occupied( anchor_end + speed ) &&
-               !b.is_occupied( b1_start + speed ) && !b.is_occupied( b1_end + speed ) &&
-               !b.is_occupied( b2_start + speed ) && !b.is_occupied( b2_end + speed ) &&
-               !b.is_occupied( b3_start + speed ) && !b.is_occupied( b3_end + speed ));
+        bool updatable = true;
+        std::array< hwlib::xy *, 4> coordinates = { &start, &b1_start, &b2_start, &b3_start };
+        for( auto & i : coordinates ){
+            if( (*i + speed != start) && (*i + speed != b1_start) && (*i + speed != b2_start) && (*i + speed != b3_start) ){
+                updatable = updatable && (!b.is_occupied( *i + speed ) || !b.is_occupied( *i + hwlib::xy(1, 1) + speed ));
+                //hwlib::cout << "XY: " << i->x << " " << i->y << '\t'; 
+                //hwlib::cout << "Occupied?: " << (b.is_occupied( *i + speed ) || b.is_occupied( *i + hwlib::xy(1, 1) + speed ))  << '\t';
+            }
+        }
+        //hwlib::cout << '\n';
+        return updatable;
+        
+        /*if (b.is_occupied( start + speed ) || b.is_occupied( anchor_end + speed ) ||
+           b.is_occupied( b1_start + speed ) || b.is_occupied( b1_end + speed ) ||
+           b.is_occupied( b2_start + speed ) || b.is_occupied( b2_end + speed ) ||
+           b.is_occupied( b3_start + speed ) || b.is_occupied( b3_end + speed )) {
+               return false;
+           }
+           else{
+               return true;
+            }*/
     }
+    
     
     uint8_t get_color(){
         return col;

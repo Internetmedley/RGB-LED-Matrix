@@ -51,13 +51,13 @@ class Buffer{
         
     uint8_t get( hwlib::xy pos ){
         auto & tmp_d = dataport[pos.y % ROW_MAX][pos.x];
-        return ((pos.y < ROW_MAX) ? (tmp_d & 0x0F) : (tmp_d & 0xF0));
+        return ((pos.y < ROW_MAX) ? (tmp_d & 0xF0) : (tmp_d & 0x0F));
     }
     
     bool is_occupied( hwlib::xy pos ){
         if( is_within_bounds(pos) ){
             auto & tmp_d = dataport[pos.y % ROW_MAX][pos.x];
-            return ((pos.y < ROW_MAX) ? ((tmp_d & 0x0F) > 0) : ((tmp_d & 0xF0) > 0));
+            return ((pos.y < ROW_MAX) ? ((tmp_d & 0xF0) > 0) : ((tmp_d & 0x0F) > 0));
         }
         else{
             return true;
