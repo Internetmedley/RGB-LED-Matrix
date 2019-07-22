@@ -2,17 +2,18 @@
 #define TETROMINO_HPP
 
 #include "pixel.hpp"
-#include "buffer.hpp"
+#include "P3-RGB-LED-matrix.hpp"
 
 
 namespace tetris{
     
-class Tetromino : public matrix::Drawable{
+class Tetromino : public hwlib::drawable{
     private:
     hwlib::xy orig_anchor_start, orig_anchor_end;
     hwlib::xy orig_b1_start, orig_b1_end;
     hwlib::xy orig_b2_start, orig_b2_end;
     hwlib::xy orig_b3_start, orig_b3_end;
+    hwlib::color ink;
     
     public:
     hwlib::xy anchor_end; //anchor_start is start from drawables
@@ -25,12 +26,13 @@ class Tetromino : public matrix::Drawable{
                hwlib::xy b1_start,
                hwlib::xy b2_start,
                hwlib::xy b3_start,
-               uint8_t color ):
-        matrix::Drawable( anchor_start, color ),
+               uint8_t col ):
+        hwlib::drawable( anchor_start ),
         orig_anchor_start( anchor_start ), orig_anchor_end( anchor_end ),
         orig_b1_start( b1_start ), orig_b1_end( b1_end ),
         orig_b2_start( b2_start ), orig_b2_end( b2_end ),
         orig_b3_start( b3_start ), orig_b3_end( b3_end ),
+        ink( col ),
         anchor_end( anchor_start + hwlib::xy(1, 1) ),
         b1_start( b1_start ), b1_end( b1_start + hwlib::xy(1, 1) ),
         b2_start( b2_start ), b2_end( b2_start + hwlib::xy(1, 1) ),
@@ -49,60 +51,50 @@ class Tetromino : public matrix::Drawable{
         b3_end     = orig_b3_end;
     }
     
-    void update() override {
+    void update() {
         start      = start + speed;
         b1_start   = b1_start + speed;
         b2_start   = b2_start + speed;
         b3_start   = b3_start + speed;
         anchor_end = anchor_end + speed;
-        b1_end   = b1_end + speed;
-        b2_end   = b2_end + speed;
-        b3_end   = b3_end + speed;
+        b1_end     = b1_end + speed;
+        b2_end     = b2_end + speed;
+        b3_end     = b3_end + speed;
     }
     
     //virtual void rotate();
     
-    void draw( matrix::Buffer & b ) override {
-        matrix::Rectangle( start, anchor_end, col ).draw( b );
-        matrix::Rectangle( b1_start, b1_end, col ).draw( b );
-        matrix::Rectangle( b2_start, b2_end, col ).draw( b );
-        matrix::Rectangle( b3_start, b3_end, col ).draw( b );
+    void draw( hwlib::window & w ) override {
+        hwlib::rectangle( start, anchor_end, ink ).draw( w );
+        hwlib::rectangle( b1_start, b1_end, ink ).draw( w );
+        hwlib::rectangle( b2_start, b2_end, ink ).draw( w );
+        hwlib::rectangle( b3_start, b3_end, ink ).draw( w );
     }
     
-    void forget( matrix::Buffer & b ) {
-        matrix::Rectangle( start, anchor_end, BLACK ).draw( b );
-        matrix::Rectangle( b1_start, b1_end, BLACK ).draw( b );
-        matrix::Rectangle( b2_start, b2_end, BLACK ).draw( b );
-        matrix::Rectangle( b3_start, b3_end, BLACK ).draw( b );
+    void forget( hwlib::window & w ) {
+        hwlib::rectangle( start, anchor_end, hwlib::color( BLACK ) ).draw( w );
+        hwlib::rectangle( b1_start, b1_end,  hwlib::color( BLACK ) ).draw( w );
+        hwlib::rectangle( b2_start, b2_end,  hwlib::color( BLACK ) ).draw( w );
+        hwlib::rectangle( b3_start, b3_end,  hwlib::color( BLACK ) ).draw( w );
     }
     
-    bool is_updatable( matrix::Buffer & b ) {
+    bool is_updatable( matrix::P3_RGB_LED_matrix & b ) {
         bool updatable = true;
         std::array< hwlib::xy *, 4> coordinates = { &start, &b1_start, &b2_start, &b3_start };
         for( auto & i : coordinates ){
             if( (*i + speed != start) && (*i + speed != b1_start) && (*i + speed != b2_start) && (*i + speed != b3_start) ){
-                updatable = updatable && (!b.is_occupied( *i + speed ) || !b.is_occupied( *i + hwlib::xy(1, 1) + speed ));
+                updatable = updatable && (!b.is_occupied( *i + speed ) && !b.is_occupied( *i + hwlib::xy(1, 1) + speed ));
                 //hwlib::cout << "XY: " << i->x << " " << i->y << '\t'; 
                 //hwlib::cout << "Occupied?: " << (b.is_occupied( *i + speed ) || b.is_occupied( *i + hwlib::xy(1, 1) + speed ))  << '\t';
             }
         }
         //hwlib::cout << '\n';
         return updatable;
-        
-        /*if (b.is_occupied( start + speed ) || b.is_occupied( anchor_end + speed ) ||
-           b.is_occupied( b1_start + speed ) || b.is_occupied( b1_end + speed ) ||
-           b.is_occupied( b2_start + speed ) || b.is_occupied( b2_end + speed ) ||
-           b.is_occupied( b3_start + speed ) || b.is_occupied( b3_end + speed )) {
-               return false;
-           }
-           else{
-               return true;
-            }*/
     }
     
     
     uint8_t get_color(){
-        return col;
+        return ink.small;
     }
 };
 

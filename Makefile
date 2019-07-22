@@ -12,7 +12,7 @@
 SOURCES := 
 
 # header files in this project
-HEADERS := buffer.hpp pixel.hpp tetromino.hpp
+HEADERS := P3-RGB-LED-matrix.hpp pixel.hpp tetromino.hpp
 
 # other places to look for files for this project
 SEARCH  := 

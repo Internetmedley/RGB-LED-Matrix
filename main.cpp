@@ -1,6 +1,6 @@
 #include <hwlib.hpp>
-#include "buffer.hpp"
-#include "pixel.hpp"
+#include "P3-RGB-LED-matrix.hpp"
+//#include "pixel.hpp"
 #include "tetromino.hpp"
 #include <array>
 
@@ -18,6 +18,11 @@ int main(){
     auto b = target::pin_out( 0, 24 );
     auto c = target::pin_out( 0, 23 );
     auto d = target::pin_out( 0, 22 );
+    
+    auto b_mv_left = target::pin_in( target::pins::d44 );      //blue button
+    auto b_mv_right = target::pin_in( target::pins::d47 );     //green button
+    auto b_clkwise = target::pin_in( target::pins::d46 );      //red button
+    auto b_anti_clkwise = target::pin_in( target::pins::d45 ); //white button
     
     auto r1 = target::pin_out( target::pins::d24 );
     auto g1 = target::pin_out( target::pins::d25 );
@@ -37,14 +42,14 @@ int main(){
     
     //uint8_t duty_cycle = 0x00;
     
-    matrix::Buffer buf( lat, oe, clk, rows, rgb1, rgb2 );
+    matrix::P3_RGB_LED_matrix buf( lat, oe, clk, rows, rgb1, rgb2 );
     
-    matrix::EmptyRectangle rect1( hwlib::xy(2, 15), hwlib::xy(14, 20), CYAN );
-    matrix::Rectangle rect2( hwlib::xy(13, 8), hwlib::xy(18, 17), PURPLE );
-    matrix::Line line1( hwlib::xy(5, 2), hwlib::xy(60, 30), YELLOW );
-    matrix::Circle circle1( hwlib::xy( 40, 16), 3, PURPLE );
-    matrix::EmptyRectangle outline1( hwlib::xy(11, 5), hwlib::xy(52, 26), WHITE );    
-    matrix::EmptyRectangle outline2( hwlib::xy(10, 4), hwlib::xy(53, 27), WHITE ); 
+    hwlib::empty_rectangle rect1( hwlib::xy(2, 15), hwlib::xy(14, 20), CYAN );
+    hwlib::rectangle rect2( hwlib::xy(13, 8), hwlib::xy(18, 17), PURPLE );
+    hwlib::line line1( hwlib::xy(5, 2), hwlib::xy(60, 30), YELLOW );
+    hwlib::circle circle1( hwlib::xy( 40, 16), 3, PURPLE );
+    hwlib::empty_rectangle outline1( hwlib::xy(11, 5), hwlib::xy(52, 26), WHITE );    
+    hwlib::empty_rectangle outline2( hwlib::xy(10, 4), hwlib::xy(53, 27), WHITE ); 
     /*tetris::I_shape I( hwlib::xy(12, 6) );
     tetris::O_shape O( hwlib::xy(32, 20) );
     tetris::T_shape T( hwlib::xy(20, 14) );
@@ -66,11 +71,14 @@ int main(){
     std::array<tetris::Tetromino *, 7> objects = { &I, &O, &T, &Z, &S, &L, &J };
     
     outline1.draw( buf );
-    outline2.draw( buf );
+    //outline2.draw( buf );
     
-    hwlib::cout << buf.is_occupied( hwlib::xy(11, 6)) << '\n';
-    hwlib::cout << buf.is_occupied( hwlib::xy(12, 6)) << '\n';
-    hwlib::cout << tetris::I_shape( hwlib::xy(16, 6) ).is_updatable( buf ) << '\n';
+    /*for( ;; ){
+        hwlib::cout << "blue: " << b_mv_left.read() << '\t';
+        hwlib::cout << "white: " << b_anti_clkwise.read() << '\t';
+        hwlib::cout << "red: " << b_clkwise.read() << '\t';
+        hwlib::cout << "green: " << b_mv_right.read() << '\n' << '\n';
+    }*/
     
     for( ;; ){
     std::random_shuffle(objects.begin(), objects.end());
@@ -78,13 +86,13 @@ int main(){
             i->draw( buf );
             while( i->is_updatable( buf ) ){
                 for( auto j = 0; j < 10; j++ ){
-                    buf.sketch();
+                    buf.flush();
                 }
                 i->forget( buf );
                 i->update();
                 i->draw( buf );
                 for( auto j = 0; j < 10; j++ ){
-                    buf.sketch();
+                    buf.flush();
                 }
             }
            //i->forget( buf ); 
