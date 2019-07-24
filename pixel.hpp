@@ -19,15 +19,15 @@ public:
     {}
     
     void draw( window & w ) override { 
-        for( auto y = start.y; y <= end.y; y++ ){
+        /*for( auto y = start.y; y <= end.y; y++ ){
             for( auto x = start.x; x <= end.x; x++ ){
                 w.write( xy( x, y ), ink );
             }
-        }
+        }*/
         
-        //for( auto y = start.y; y <= end.y; y++ ){
-        //    Line( hwlib::xy(start.x, y), hwlib::xy(end.x+1, y), col ).draw( b );
-        //}
+        for( auto y = start.y; y <= end.y; y++ ){
+            line( xy(start.x, y), xy(end.x+1, y), ink ).draw( w );
+        }
     }
 };
 

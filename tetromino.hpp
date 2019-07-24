@@ -15,19 +15,6 @@ class Tetromino : public hwlib::drawable{
     hwlib::xy orig_b3_start, orig_b3_end;
     hwlib::color ink;
     
-    void update( hwlib::window & w ) {
-        forget( w );
-        start      = start + speed;
-        b1_start   = b1_start + speed;
-        b2_start   = b2_start + speed;
-        b3_start   = b3_start + speed;
-        anchor_end = anchor_end + speed;
-        b1_end     = b1_end + speed;
-        b2_end     = b2_end + speed;
-        b3_end     = b3_end + speed;
-        speed      = hwlib::xy(-2, 0);
-        draw( w );
-    }
     
     public:
     hwlib::xy anchor_end; //anchor_start is start from drawables
@@ -42,10 +29,10 @@ class Tetromino : public hwlib::drawable{
                hwlib::xy b3_start,
                uint8_t col ):
         hwlib::drawable( anchor_start ),
-        orig_anchor_start( anchor_start ), orig_anchor_end( anchor_end ),
-        orig_b1_start( b1_start ), orig_b1_end( b1_end ),
-        orig_b2_start( b2_start ), orig_b2_end( b2_end ),
-        orig_b3_start( b3_start ), orig_b3_end( b3_end ),
+        orig_anchor_start( anchor_start ), orig_anchor_end( anchor_start + hwlib::xy(1, 1) ),
+        orig_b1_start( b1_start ), orig_b1_end( b1_start + hwlib::xy(1, 1) ),
+        orig_b2_start( b2_start ), orig_b2_end( b2_start + hwlib::xy(1, 1) ),
+        orig_b3_start( b3_start ), orig_b3_end( b3_start + hwlib::xy(1, 1) ),
         ink( col ),
         anchor_end( anchor_start + hwlib::xy(1, 1) ),
         b1_start( b1_start ), b1_end( b1_start + hwlib::xy(1, 1) ),
@@ -65,8 +52,6 @@ class Tetromino : public hwlib::drawable{
         b3_end     = orig_b3_end;
     }
     
-    //virtual void rotate();
-    
     void draw( hwlib::window & w ) override {
         hwlib::rectangle( start, anchor_end, ink ).draw( w );
         hwlib::rectangle( b1_start, b1_end, ink ).draw( w );
@@ -75,25 +60,73 @@ class Tetromino : public hwlib::drawable{
     }
     
     void forget( hwlib::window & w ) {
+        //hwlib::cout << start << " - " << anchor_end << '\n';
         hwlib::rectangle( start, anchor_end, hwlib::color( BLACK ) ).draw( w );
+        //hwlib::cout << b1_start << " - " << b1_end << '\n';
         hwlib::rectangle( b1_start, b1_end,  hwlib::color( BLACK ) ).draw( w );
+        //hwlib::cout << b2_start << " - " << b2_end << '\n';
         hwlib::rectangle( b2_start, b2_end,  hwlib::color( BLACK ) ).draw( w );
+        //hwlib::cout << b3_start << " - " << b3_end << '\n';
         hwlib::rectangle( b3_start, b3_end,  hwlib::color( BLACK ) ).draw( w );
+    }
+    
+    void rotate_ctr_clkwise(){
+        
+    }
+    
+    void rotate_clkwise( hwlib::window & w ) {
+        this->forget( w );
+        int newX;
+        int newY;
+        std::array< hwlib::xy *, 4> start_coordinates = { &start, &b1_start, &b2_start, &b3_start };
+        for( auto & i : start_coordinates ){
+            *i = *i - orig_anchor_start;
+            newX = (0  * i->x) + (1 * i->y);
+            newY = (-1 * i->x) + (0 * i->y);
+            *i = hwlib::xy( newX, newY );
+            *i = *i + orig_anchor_start;
+        }
+        std::array< hwlib::xy *, 4> end_coordinates = { &anchor_end, &b1_end, &b2_end, &b3_end };
+        for( auto & i : end_coordinates ){
+            *i = *i - orig_anchor_end;
+            newX = (0  * i->x) + (1 * i->y);
+            newY = (-1 * i->x) + (0 * i->y);
+            *i = hwlib::xy( newX, newY );
+            *i = *i + orig_anchor_end;
+        }
+        this->draw( w );
+    }
+    
+    void update( hwlib::window & w ) {
+        //hwlib::cout << "dit hier" << '\n';
+        this->forget( w );
+        //hwlib::cout << "update vergeten" << '\n';
+        start      = start + speed;
+        b1_start   = b1_start + speed;
+        b2_start   = b2_start + speed;
+        b3_start   = b3_start + speed;
+        anchor_end = anchor_end + speed;
+        b1_end     = b1_end + speed;
+        b2_end     = b2_end + speed;
+        b3_end     = b3_end + speed;
+        speed      = hwlib::xy(-2, 0);
+        this->draw( w );
+        //hwlib::cout << "update getekend" << '\n';
     }
     
     void move_down( hwlib::window & w ){
         speed = hwlib::xy(-2, 0);
-        update( w );
+        this->update( w );
     }
     
      void move_left( hwlib::window & w ){
         speed = hwlib::xy(0, -2);
-        update( w );
+        this->update( w );
     }
     
      void move_right( hwlib::window & w ){
         speed = hwlib::xy(0, 2);
-        update( w );
+        this->update( w );
     }
     
     bool can_move_down( matrix::P3_RGB_LED_matrix & b ) {
@@ -112,14 +145,14 @@ class Tetromino : public hwlib::drawable{
     
     bool can_move_left( matrix::P3_RGB_LED_matrix & b ){
         speed = hwlib::xy(0, -2);
-        bool updatable = can_move_down( b );
+        bool updatable = this->can_move_down( b );
         speed = hwlib::xy(-2, 0);
         return updatable;
     }
     
     bool can_move_right( matrix::P3_RGB_LED_matrix & b ){
         speed = hwlib::xy(0, 2);
-        bool updatable = can_move_down( b );
+        bool updatable = this->can_move_down( b );
         speed = hwlib::xy(-2, 0);
         return updatable;
     }

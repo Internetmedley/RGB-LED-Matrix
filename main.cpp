@@ -19,10 +19,10 @@ int main(){
     auto c = target::pin_out( 0, 23 );
     auto d = target::pin_out( 0, 22 );
     
-    auto b_mv_left = target::pin_in( target::pins::d44 );      //blue button
-    auto b_mv_right = target::pin_in( target::pins::d47 );     //green button
-    auto b_clkwise = target::pin_in( target::pins::d46 );      //red button
-    auto b_anti_clkwise = target::pin_in( target::pins::d45 ); //white button
+    auto b_mv_left = target::pin_in( target::pins::d44 );           //blue button
+    auto b_mv_right = target::pin_in( target::pins::d47 );          //green button
+    auto b_rotate_clkwise = target::pin_in( target::pins::d46 );       //red button
+    auto b_rotate_ctr_clkwise = target::pin_in( target::pins::d45 );   //white button
     
     auto r1 = target::pin_out( target::pins::d24 );
     auto g1 = target::pin_out( target::pins::d25 );
@@ -99,25 +99,34 @@ int main(){
     
     for( ;; ){
         std::random_shuffle(objects.begin(), objects.end());
-        hwlib::cout << "before iteration" << '\n';
+        //hwlib::cout << "before iteration" << '\n';
         for( auto & i : objects ){
-            hwlib::cout << "can move down?: " << i->can_move_down( buf ) << '\n';
-            //i->draw( buf );
-            hwlib::cout << "success " << '\n';
+            //hwlib::cout << "can move down?: " << i->can_move_down( buf ) << '\n';
+            i->draw( buf );
+            //hwlib::cout << "success " << '\n';
             while( i->can_move_down( buf ) ){
                 for( auto j = 0; j < 5; j++ ){
                     buf.flush();
                 }
+                
                 i->move_down( buf );
-                hwlib::cout << "in loop" << '\n';
+                //hwlib::cout << "in loop" << '\n';
                 if( b_mv_left.read() == true && i->can_move_left( buf ) ){
                     i->move_left( buf );
                 }
+                if( b_mv_right.read() == true && i->can_move_right( buf ) ){
+                    i->move_right( buf );
+                }
+                if( b_rotate_clkwise.read() == true ){
+                    i->rotate_clkwise( buf );
+                }
+
+                
                 for( auto j = 0; j < 5; j++ ){
                     buf.flush();
                 }
             }
-            hwlib::cout << "can still move down?: " << i->can_move_down( buf ) << '\n';
+            //hwlib::cout << "can still move down?: " << i->can_move_down( buf ) << '\n';
            i->reset();
         }
     } 
