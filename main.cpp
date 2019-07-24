@@ -48,8 +48,7 @@ int main(){
     hwlib::rectangle rect2( hwlib::xy(13, 8), hwlib::xy(18, 17), PURPLE );
     hwlib::line line1( hwlib::xy(5, 2), hwlib::xy(60, 30), YELLOW );
     hwlib::circle circle1( hwlib::xy( 40, 16), 3, PURPLE );
-    hwlib::empty_rectangle outline1( hwlib::xy(11, 5), hwlib::xy(52, 26), WHITE );    
-    hwlib::empty_rectangle outline2( hwlib::xy(10, 4), hwlib::xy(53, 27), WHITE ); 
+    hwlib::empty_rectangle outline1( hwlib::xy(11, 5), hwlib::xy(52, 26), WHITE );
     /*tetris::I_shape I( hwlib::xy(12, 6) );
     tetris::O_shape O( hwlib::xy(32, 20) );
     tetris::T_shape T( hwlib::xy(20, 14) );
@@ -71,7 +70,14 @@ int main(){
     std::array<tetris::Tetromino *, 7> objects = { &I, &O, &T, &Z, &S, &L, &J };
     
     outline1.draw( buf );
-    //outline2.draw( buf );
+    /*rect1.draw( buf );
+    rect2.draw( buf );
+    line1.draw( buf );
+    circle1.draw( buf );
+    
+    for( ;; ){
+        buf.flush();
+    }*/
     
     /*for( ;; ){
         hwlib::cout << "blue: " << b_mv_left.read() << '\t';
@@ -80,25 +86,41 @@ int main(){
         hwlib::cout << "green: " << b_mv_right.read() << '\n' << '\n';
     }*/
     
-    for( ;; ){
-    std::random_shuffle(objects.begin(), objects.end());
+    /*for(;;){
+        std::random_shuffle(objects.begin(), objects.end());
         for( auto & i : objects ){
             i->draw( buf );
-            while( i->is_updatable( buf ) ){
-                for( auto j = 0; j < 10; j++ ){
+            for( auto j = 0; j < 25; j++ ){
                     buf.flush();
                 }
-                i->forget( buf );
-                i->update();
-                i->draw( buf );
-                for( auto j = 0; j < 10; j++ ){
+            i->forget( buf );
+        }
+    }*/
+    
+    for( ;; ){
+        std::random_shuffle(objects.begin(), objects.end());
+        hwlib::cout << "before iteration" << '\n';
+        for( auto & i : objects ){
+            hwlib::cout << "can move down?: " << i->can_move_down( buf ) << '\n';
+            //i->draw( buf );
+            hwlib::cout << "success " << '\n';
+            while( i->can_move_down( buf ) ){
+                for( auto j = 0; j < 5; j++ ){
+                    buf.flush();
+                }
+                i->move_down( buf );
+                hwlib::cout << "in loop" << '\n';
+                if( b_mv_left.read() == true && i->can_move_left( buf ) ){
+                    i->move_left( buf );
+                }
+                for( auto j = 0; j < 5; j++ ){
                     buf.flush();
                 }
             }
-           //i->forget( buf ); 
+            hwlib::cout << "can still move down?: " << i->can_move_down( buf ) << '\n';
            i->reset();
         }
-    }  
+    } 
     
     return 0;
 }

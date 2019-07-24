@@ -15,6 +15,20 @@ class Tetromino : public hwlib::drawable{
     hwlib::xy orig_b3_start, orig_b3_end;
     hwlib::color ink;
     
+    void update( hwlib::window & w ) {
+        forget( w );
+        start      = start + speed;
+        b1_start   = b1_start + speed;
+        b2_start   = b2_start + speed;
+        b3_start   = b3_start + speed;
+        anchor_end = anchor_end + speed;
+        b1_end     = b1_end + speed;
+        b2_end     = b2_end + speed;
+        b3_end     = b3_end + speed;
+        speed      = hwlib::xy(-2, 0);
+        draw( w );
+    }
+    
     public:
     hwlib::xy anchor_end; //anchor_start is start from drawables
     hwlib::xy b1_start, b1_end;
@@ -51,17 +65,6 @@ class Tetromino : public hwlib::drawable{
         b3_end     = orig_b3_end;
     }
     
-    void update() {
-        start      = start + speed;
-        b1_start   = b1_start + speed;
-        b2_start   = b2_start + speed;
-        b3_start   = b3_start + speed;
-        anchor_end = anchor_end + speed;
-        b1_end     = b1_end + speed;
-        b2_end     = b2_end + speed;
-        b3_end     = b3_end + speed;
-    }
-    
     //virtual void rotate();
     
     void draw( hwlib::window & w ) override {
@@ -78,7 +81,22 @@ class Tetromino : public hwlib::drawable{
         hwlib::rectangle( b3_start, b3_end,  hwlib::color( BLACK ) ).draw( w );
     }
     
-    bool is_updatable( matrix::P3_RGB_LED_matrix & b ) {
+    void move_down( hwlib::window & w ){
+        speed = hwlib::xy(-2, 0);
+        update( w );
+    }
+    
+     void move_left( hwlib::window & w ){
+        speed = hwlib::xy(0, -2);
+        update( w );
+    }
+    
+     void move_right( hwlib::window & w ){
+        speed = hwlib::xy(0, 2);
+        update( w );
+    }
+    
+    bool can_move_down( matrix::P3_RGB_LED_matrix & b ) {
         bool updatable = true;
         std::array< hwlib::xy *, 4> coordinates = { &start, &b1_start, &b2_start, &b3_start };
         for( auto & i : coordinates ){
@@ -92,6 +110,19 @@ class Tetromino : public hwlib::drawable{
         return updatable;
     }
     
+    bool can_move_left( matrix::P3_RGB_LED_matrix & b ){
+        speed = hwlib::xy(0, -2);
+        bool updatable = can_move_down( b );
+        speed = hwlib::xy(-2, 0);
+        return updatable;
+    }
+    
+    bool can_move_right( matrix::P3_RGB_LED_matrix & b ){
+        speed = hwlib::xy(0, 2);
+        bool updatable = can_move_down( b );
+        speed = hwlib::xy(-2, 0);
+        return updatable;
+    }
     
     uint8_t get_color(){
         return ink.small;
