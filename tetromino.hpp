@@ -1,7 +1,7 @@
 #ifndef TETROMINO_HPP
 #define TETROMINO_HPP
 
-#include "pixel.hpp"
+#include "rectangles.hpp"
 #include "P3-RGB-LED-matrix.hpp"
 
 
@@ -70,33 +70,98 @@ class Tetromino : public hwlib::drawable{
         hwlib::rectangle( b3_start, b3_end,  hwlib::color( BLACK ) ).draw( w );
     }
     
-    void rotate_ctr_clkwise(){
+    bool can_line_clear( matrix::P3_RGB_LED_matrix & b ) {
+        auto lowest_x = start.x;
+        if( b1_start.x < lowest_x ) { lowest_x = b1_start.x; };
+        if( b2_start.x < lowest_x ) { lowest_x = b2_start.x; };
+        if( b2_start.x < lowest_x ) { lowest_x = b3_start.x; };
         
+        bool full_row = true;
+        for( auto y = 12; y <= 51; y++ ){
+            full_row = full_row && (b.is_occupied( hwlib::xy(lowest_x, y) ) && b.is_occupied( hwlib::xy(lowest_x+1, y) ));
+            hwlib::cout << hwlib::xy(lowest_x, y) << " occupied: " << b.is_occupied( hwlib::xy(lowest_x, y) ) << '\n';
+        }
+        
+        return full_row;
     }
     
-    void rotate_clkwise( hwlib::window & w ) {
+    virtual bool can_rotate_clkwise( matrix::P3_RGB_LED_matrix & b ) {
+        int newX;
+        int newY;
+        hwlib::xy new_pos;
+        bool updatable = true;
+        std::array< hwlib::xy *, 4> start_coordinates = { &start, &b1_start, &b2_start, &b3_start };
+        for( auto & i : start_coordinates ) {
+            newX = ( 0 * (i->x - start.x)) + (1 * (i->y - start.y));
+            newY = (-1 * (i->x - start.x)) + (0 * (i->y - start.y));
+            new_pos = hwlib::xy(newX, newY);
+            if( (*i + new_pos != start) && (*i + new_pos != b1_start) && (*i + new_pos != b2_start) && (*i + new_pos != b3_start) ) {
+                updatable = updatable && !b.is_occupied( *i + new_pos ) && !b.is_occupied( *i + new_pos + hwlib::xy(1, 1) );
+            }
+        }
+        return updatable;
+    }
+    
+    virtual bool can_rotate_ctr_clkwise( matrix::P3_RGB_LED_matrix & b ) {
+        int newX;
+        int newY;
+        hwlib::xy new_pos;
+        bool updatable = true;
+        std::array< hwlib::xy *, 4> start_coordinates = { &start, &b1_start, &b2_start, &b3_start };
+        for( auto & i : start_coordinates ) {
+            newX = (0 * (i->x - start.x)) + (-1 * (i->y - start.y));
+            newY = (1 * (i->x - start.x)) + ( 0 * (i->y - start.y));
+            new_pos = hwlib::xy(newX, newY);
+            if( (*i + new_pos != start) && (*i + new_pos != b1_start) && (*i + new_pos != b2_start) && (*i + new_pos != b3_start) ){ 
+                updatable = updatable && (!b.is_occupied( *i + new_pos ) && !b.is_occupied( *i + new_pos + hwlib::xy(1, 1) ));
+            }
+        }
+        return updatable;
+    }
+
+    
+    virtual void rotate_clkwise( hwlib::window & w ) {
         this->forget( w );
         int newX;
         int newY;
+        auto anchor_pos = start;
         std::array< hwlib::xy *, 4> start_coordinates = { &start, &b1_start, &b2_start, &b3_start };
         for( auto & i : start_coordinates ){
-            *i = *i - orig_anchor_start;
-            newX = (0  * i->x) + (1 * i->y);
+            *i = *i - anchor_pos;
+            newX = ( 0 * i->x) + (1 * i->y);
             newY = (-1 * i->x) + (0 * i->y);
             *i = hwlib::xy( newX, newY );
-            *i = *i + orig_anchor_start;
+            *i = *i + anchor_pos;
         }
-        std::array< hwlib::xy *, 4> end_coordinates = { &anchor_end, &b1_end, &b2_end, &b3_end };
-        for( auto & i : end_coordinates ){
-            *i = *i - orig_anchor_end;
-            newX = (0  * i->x) + (1 * i->y);
-            newY = (-1 * i->x) + (0 * i->y);
-            *i = hwlib::xy( newX, newY );
-            *i = *i + orig_anchor_end;
-        }
+        anchor_end = start + hwlib::xy(1, 1);
+        b1_end = b1_start + hwlib::xy(1, 1);
+        b2_end = b2_start + hwlib::xy(1, 1);
+        b3_end = b3_start + hwlib::xy(1, 1);
+        b3_end = b3_start + hwlib::xy(1, 1);
         this->draw( w );
     }
     
+    virtual void rotate_ctr_clkwise( hwlib::window & w ) {
+        this->forget( w );
+        int newX;
+        int newY;
+        auto anchor_pos = start;
+        std::array< hwlib::xy *, 4> start_coordinates = { &start, &b1_start, &b2_start, &b3_start };
+        for( auto & i : start_coordinates ){
+            *i = *i - anchor_pos;
+            newX = (0 * i->x) + (-1 * i->y);
+            newY = (1 * i->x) + ( 0 * i->y);
+            *i = hwlib::xy( newX, newY );
+            *i = *i + anchor_pos;
+        }
+        anchor_end = start + hwlib::xy(1, 1);
+        b1_end = b1_start + hwlib::xy(1, 1);
+        b2_end = b2_start + hwlib::xy(1, 1);
+        b3_end = b3_start + hwlib::xy(1, 1);
+        b3_end = b3_start + hwlib::xy(1, 1);
+        this->draw( w );
+    }
+        
     void update( hwlib::window & w ) {
         //hwlib::cout << "dit hier" << '\n';
         this->forget( w );
@@ -161,86 +226,6 @@ class Tetromino : public hwlib::drawable{
         return ink.small;
     }
 };
-
-
-class I_shape : public Tetromino{
-    public:
-    I_shape( hwlib::xy s = hwlib::xy(50, 12), uint8_t color = CYAN ): 
-        Tetromino( hwlib::xy(s.x, s.y+4),
-                   hwlib::xy(s),
-                   hwlib::xy(s.x, s.y+2),
-                   hwlib::xy(s.x, s.y+6),
-                   color ) 
-    {}
-};
-
-class O_shape : public Tetromino{
-public:
-    O_shape( hwlib::xy s = hwlib::xy(48, 14), uint8_t color = YELLOW ): 
-        Tetromino( hwlib::xy(s),
-                   hwlib::xy(s.x, s.y+2),
-                   hwlib::xy(s.x+2, s.y),
-                   hwlib::xy(s.x+2, s.y+2),
-                   color ) 
-    {}
-};
-
-class T_shape : public Tetromino{
-public:
-    T_shape( hwlib::xy s = hwlib::xy(48, 12), uint8_t color = PURPLE ): 
-        Tetromino( hwlib::xy(s.x, s.y+2),
-                   hwlib::xy(s),
-                   hwlib::xy(s.x+2, s.y+2),
-                   hwlib::xy(s.x, s.y+4),
-                   color )
-    {}
-};
-
-class J_shape : public Tetromino{
-public:
-    J_shape( hwlib::xy s = hwlib::xy(48, 12), uint8_t color = BLUE ): 
-        Tetromino( hwlib::xy(s.x, s.y+2),
-                   hwlib::xy(s),
-                   hwlib::xy(s.x+2, s.y),
-                   hwlib::xy(s.x, s.y+4),
-                   color )
-    {}
-};
-
-class L_shape : public Tetromino{
-public:
-    L_shape( hwlib::xy s = hwlib::xy(48, 12), uint8_t color = WHITE ): 
-        Tetromino( hwlib::xy(s.x, s.y+2),
-                   hwlib::xy(s),
-                   hwlib::xy(s.x, s.y+4),
-                   hwlib::xy(s.x+2, s.y+4),
-                   color )
-    {}
-};
-
-class S_shape : public Tetromino{
-public:
-    S_shape( hwlib::xy s = hwlib::xy(48, 12), uint8_t color = GREEN ): 
-        Tetromino( hwlib::xy(s.x+2, s.y+2),
-                   hwlib::xy(s),
-                   hwlib::xy(s.x, s.y+2),
-                   hwlib::xy(s.x+2, s.y+4),
-                   color )
-    {}
-};
-
-class Z_shape : public Tetromino{
-public:
-    Z_shape( hwlib::xy s = hwlib::xy(48, 12), uint8_t color = RED ): 
-        Tetromino( hwlib::xy(s.x+2, s.y+2),
-                   hwlib::xy(s.x, s.y+4),
-                   hwlib::xy(s.x, s.y+2),
-                   hwlib::xy(s.x+2, s.y),
-                   color )
-    {}
-};
-
 }
-
 
 #endif  //TETROMINO_HPP
