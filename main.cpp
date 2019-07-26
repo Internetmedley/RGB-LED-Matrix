@@ -5,9 +5,7 @@
 #include "tetris-shapes.hpp"
 #include <array>
 
-#include <stdio.h>      /* printf, scanf, puts, NULL */
-#include <stdlib.h>     /* srand, rand */
-#include <algorithm> 
+#include <algorithm>    //for std::random_shuffle
 
 // ===========================================================================
 
@@ -40,15 +38,11 @@ int main(){
     auto rgb1 = hwlib::port_out_from( b1, g1, r1 );
     auto rgb2 = hwlib::port_out_from( b2, g2, r2 );
 
-    
+    hwlib::wait_ms(1000);
+
     matrix::P3_RGB_LED_matrix buf( lat, oe, clk, rows, rgb1, rgb2 );
     
-    hwlib::empty_rectangle rect1( hwlib::xy(2, 15), hwlib::xy(14, 20), CYAN );
-    hwlib::rectangle rect2( hwlib::xy(13, 8), hwlib::xy(18, 17), PURPLE );
-    hwlib::line line1( hwlib::xy(5, 2), hwlib::xy(60, 30), YELLOW );
-    hwlib::circle circle1( hwlib::xy( 40, 16), 3, PURPLE );
     hwlib::empty_rectangle outline1( hwlib::xy(11, 5), hwlib::xy(52, 26), WHITE );
-    
     tetris::I_shape I;
     tetris::O_shape O;
     tetris::T_shape T;
@@ -57,45 +51,13 @@ int main(){
     tetris::L_shape L;
     tetris::J_shape J;
     
-    hwlib::wait_ms(1000);
-    
     std::array<tetris::Tetromino *, 7> objects = { &I, &O, &T, &Z, &S, &L, &J };
-    
     outline1.draw( buf );
-    /*rect1.draw( buf );
-    rect2.draw( buf );
-    line1.draw( buf );
-    circle1.draw( buf );
-    
-    for( ;; ){
-        buf.flush();
-    }*/
-    
-    /*for( ;; ){
-        hwlib::cout << "blue: " << b_mv_left.read() << '\t';
-        hwlib::cout << "white: " << b_anti_clkwise.read() << '\t';
-        hwlib::cout << "red: " << b_clkwise.read() << '\t';
-        hwlib::cout << "green: " << b_mv_right.read() << '\n' << '\n';
-    }*/
-    
-    /*for(;;){
-        std::random_shuffle(objects.begin(), objects.end());
-        for( auto & i : objects ){
-            i->draw( buf );
-            for( auto j = 0; j < 25; j++ ){
-                    buf.flush();
-                }
-            i->forget( buf );
-        }
-    }*/
-    
     for( ;; ){
         std::random_shuffle(objects.begin(), objects.end());
-        //hwlib::cout << "before iteration" << '\n';
+
         for( auto & i : objects ){
-            //hwlib::cout << "can move down?: " << i->can_move_down( buf ) << '\n';
             i->draw( buf );
-            //hwlib::cout << "success " << '\n';
             while( i->can_move_down( buf ) ){
                 buf.flush();
                 buf.flush();
@@ -120,11 +82,8 @@ int main(){
                 buf.flush();
                 buf.flush();
             }
-            //hwlib::cout << "can still move down?: " << i->can_move_down( buf ) << '\n';
-           //hwlib::cout << "can line clear?" << i->can_line_clear( buf ) << '\n';
            i->reset();
         }
     } 
-    
     return 0;
 }
