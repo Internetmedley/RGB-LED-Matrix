@@ -14,17 +14,22 @@
 #define BLUE        0x01	
 #define BLACK       0x00	
 
+/// @file
+
 #include <hwlib.hpp>	
 #include <array>	
-//#include "tetromino.hpp"	
-//#include <cstdlib>	
-//#include <ctime>	
-
 
 using namespace hwlib::target;	
 
 namespace matrix{	
 
+/// \brief
+/// P3_RGB_LED_matrix class
+/// \details
+/// This is a class that uses the hwlib library to provide the user with an interface to work with matrices like this one:
+/// https://www.adafruit.com/product/2279
+/// This class provides a buffer with write functions and a toolset of other functions.
+/// The user must give three hwlib pins and three hwlib port_outs to the constructor for initialization.
 class P3_RGB_LED_matrix : public hwlib::window{	
     private:	
     pin_out & lat;	
@@ -41,6 +46,13 @@ class P3_RGB_LED_matrix : public hwlib::window{
     }
 
     public:	
+    /// \brief
+    /// constructor from explicit values
+    /// \details
+    /// This constructor initializes the pins and port_outs and initializes its superclass, hwlib,
+    /// with pre-defined values found at the top of the page.
+    /// These values can be changed to change the resolution of the window.
+    /// Lastly it intializes the dataport buffer(array) with zeroes.
     P3_RGB_LED_matrix( pin_out & latch, pin_out & out_enable, pin_out & clock, 	
             hwlib::port_out & rows_port, hwlib::port_out & rgb1_port,	
             hwlib::port_out & rgb2_port, 
