@@ -63,15 +63,18 @@ class P3_RGB_LED_matrix : public hwlib::window{
         dataport( {{ 0 }} )
     {}
 
+    /// \brief
+    /// checks if given coordinate is valid
+    /// \details
+    /// This boolean member function checks to see if the given hwlib::xy pos is within the window resolution.
     bool is_within_bounds( const hwlib::xy & pos ){	
         return ((pos.x >= 0 && pos.x <= MAT_WIDTH) && (pos.y >= 0 && pos.y <= MAT_HEIGHT));	
     }	
 
-    uint8_t get( hwlib::xy pos ){	
-        auto & tmp_d = dataport[pos.y % ROW_MAX][pos.x];	
-        return ((pos.y < ROW_MAX) ? (tmp_d & 0xF0) : (tmp_d & 0x0F));	
-    }	
-
+    /// \brief
+    /// checks if given coordinate is taken
+    /// \details
+    /// This boolean member function checks the buffer to see if the given index has a value greater than zero.
     bool is_occupied( hwlib::xy pos ){	
         if( is_within_bounds(pos) ){	
             auto & tmp_d = dataport[pos.y % ROW_MAX][pos.x];	
@@ -84,30 +87,7 @@ class P3_RGB_LED_matrix : public hwlib::window{
 
     void clear(){	
         dataport = {{ 0 }};	
-    }	
-
- /*void write( hwlib::xy pos, uint8_t color = WHITE ){	
-    if( is_within_bounds(pos) ){	
-        auto & tmp_d = dataport[pos.y % ROW_MAX][pos.x];	
-        tmp_d = ((pos.y < ROW_MAX) ? ((tmp_d & 0x0F) | (color << 0x04)) : (tmp_d & 0xF0) | color);	
-        if( pos.y < ROW_MAX ){ 	
-            tmp_d = ((tmp_d & 0x0F) | (color << 0x04)); 	
-        }	
-        else { 	
-            tmp_d = ((tmp_d & 0xF0) | color); 	
-        }
     }
-}*/
-
-
-
- /*void write_rand_col( hwlib::xy pos ){	
-    uint8_t & tmp_d = dataport[pos.y % ROW_MAX][pos.x % MAT_WIDTH];	
-    srand(static_cast<unsigned int>(time(0)));	
-    uint8_t color = ( (rand()+1) & 0x77 );	
-    if( pos.y < ROW_MAX ) { tmp_d = (tmp_d & 0x0F) | (color << 0x04); }	
-    else { tmp_d = (tmp_d & 0xF0) | color; }	
-}*/	
 
     void flush() override {	
         uint8_t tmp_i = 0;	
