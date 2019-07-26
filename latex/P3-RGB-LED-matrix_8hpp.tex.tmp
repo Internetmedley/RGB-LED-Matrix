@@ -1,0 +1,49 @@
+\hypertarget{P3-RGB-LED-matrix_8hpp}{}\section{P3-\/\+R\+G\+B-\/\+L\+E\+D-\/matrix.hpp File Reference}
+\label{P3-RGB-LED-matrix_8hpp}\index{P3-\/\+R\+G\+B-\/\+L\+E\+D-\/matrix.\+hpp@{P3-\/\+R\+G\+B-\/\+L\+E\+D-\/matrix.\+hpp}}
+{\ttfamily \#include $<$hwlib.\+hpp$>$}\newline
+{\ttfamily \#include $<$array$>$}\newline
+Include dependency graph for P3-\/\+R\+G\+B-\/\+L\+E\+D-\/matrix.hpp\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classmatrix_1_1P3__RGB__LED__matrix}{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix}
+\begin{DoxyCompactList}\small\item\em \hyperlink{classmatrix_1_1P3__RGB__LED__matrix}{P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{P3-RGB-LED-matrix_8hpp_aa1bb33d38d4ed835793a038034a7d446}\label{P3-RGB-LED-matrix_8hpp_aa1bb33d38d4ed835793a038034a7d446}} 
+\#define {\bfseries M\+A\+T\+\_\+\+W\+I\+D\+TH}~64
+\item 
+\mbox{\Hypertarget{P3-RGB-LED-matrix_8hpp_a571a95e1942fd246d254c365bda55f7a}\label{P3-RGB-LED-matrix_8hpp_a571a95e1942fd246d254c365bda55f7a}} 
+\#define {\bfseries M\+A\+T\+\_\+\+H\+E\+I\+G\+HT}~32
+\item 
+\mbox{\Hypertarget{P3-RGB-LED-matrix_8hpp_a06fc4a42cf3c87aafa67518b95e9d588}\label{P3-RGB-LED-matrix_8hpp_a06fc4a42cf3c87aafa67518b95e9d588}} 
+\#define {\bfseries R\+O\+W\+\_\+\+M\+AX}~16
+\item 
+\mbox{\Hypertarget{P3-RGB-LED-matrix_8hpp_a87b537f5fa5c109d3c05c13d6b18f382}\label{P3-RGB-LED-matrix_8hpp_a87b537f5fa5c109d3c05c13d6b18f382}} 
+\#define {\bfseries W\+H\+I\+TE}~0x07
+\item 
+\mbox{\Hypertarget{P3-RGB-LED-matrix_8hpp_abf681265909adf3d3e8116c93c0ba179}\label{P3-RGB-LED-matrix_8hpp_abf681265909adf3d3e8116c93c0ba179}} 
+\#define {\bfseries Y\+E\+L\+L\+OW}~0x06
+\item 
+\mbox{\Hypertarget{P3-RGB-LED-matrix_8hpp_a0bb0b009e7a7390473ace4d98bd843c0}\label{P3-RGB-LED-matrix_8hpp_a0bb0b009e7a7390473ace4d98bd843c0}} 
+\#define {\bfseries P\+U\+R\+P\+LE}~0x05
+\item 
+\mbox{\Hypertarget{P3-RGB-LED-matrix_8hpp_a8d23feea868a983c8c2b661e1e16972f}\label{P3-RGB-LED-matrix_8hpp_a8d23feea868a983c8c2b661e1e16972f}} 
+\#define {\bfseries R\+ED}~0x04
+\item 
+\mbox{\Hypertarget{P3-RGB-LED-matrix_8hpp_ad243f93c16bc4c1d3e0a13b84421d760}\label{P3-RGB-LED-matrix_8hpp_ad243f93c16bc4c1d3e0a13b84421d760}} 
+\#define {\bfseries C\+Y\+AN}~0x03
+\item 
+\mbox{\Hypertarget{P3-RGB-LED-matrix_8hpp_acfbc006ea433ad708fdee3e82996e721}\label{P3-RGB-LED-matrix_8hpp_acfbc006ea433ad708fdee3e82996e721}} 
+\#define {\bfseries G\+R\+E\+EN}~0x02
+\item 
+\mbox{\Hypertarget{P3-RGB-LED-matrix_8hpp_a79d10e672abb49ad63eeaa8aaef57c38}\label{P3-RGB-LED-matrix_8hpp_a79d10e672abb49ad63eeaa8aaef57c38}} 
+\#define {\bfseries B\+L\+UE}~0x01
+\item 
+\mbox{\Hypertarget{P3-RGB-LED-matrix_8hpp_a7b3b25cba33b07c303f3060fe41887f6}\label{P3-RGB-LED-matrix_8hpp_a7b3b25cba33b07c303f3060fe41887f6}} 
+\#define {\bfseries B\+L\+A\+CK}~0x00
+\end{DoxyCompactItemize}

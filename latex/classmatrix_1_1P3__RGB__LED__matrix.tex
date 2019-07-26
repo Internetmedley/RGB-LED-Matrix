@@ -1,0 +1,98 @@
+\hypertarget{classmatrix_1_1P3__RGB__LED__matrix}{}\section{matrix\+:\+:P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix Class Reference}
+\label{classmatrix_1_1P3__RGB__LED__matrix}\index{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix@{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix}}
+
+
+\hyperlink{classmatrix_1_1P3__RGB__LED__matrix}{P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix} class.  
+
+
+
+
+{\ttfamily \#include $<$P3-\/\+R\+G\+B-\/\+L\+E\+D-\/matrix.\+hpp$>$}
+
+
+
+Inheritance diagram for matrix\+:\+:P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix\+:
+% FIG 0
+
+
+Collaboration diagram for matrix\+:\+:P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix\+:
+% FIG 1
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classmatrix_1_1P3__RGB__LED__matrix_aadf4b19a9e7a0abc01387b87e92f6c7d}{P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix} (pin\+\_\+out \&latch, pin\+\_\+out \&out\+\_\+enable, pin\+\_\+out \&clock, hwlib\+::port\+\_\+out \&rows\+\_\+port, hwlib\+::port\+\_\+out \&rgb1\+\_\+port, hwlib\+::port\+\_\+out \&rgb2\+\_\+port, uint8\+\_\+t foreground=W\+H\+I\+TE, uint8\+\_\+t background=B\+L\+A\+CK)
+\begin{DoxyCompactList}\small\item\em constructor from explicit values \end{DoxyCompactList}\item 
+bool \hyperlink{classmatrix_1_1P3__RGB__LED__matrix_a217534f5145dad527103fa2c17484b6a}{is\+\_\+within\+\_\+bounds} (const hwlib\+::xy \&pos)
+\begin{DoxyCompactList}\small\item\em checks if given coordinate is valid \end{DoxyCompactList}\item 
+bool \hyperlink{classmatrix_1_1P3__RGB__LED__matrix_a6a402271f9f13d646be69fe39e5b08b6}{is\+\_\+occupied} (hwlib\+::xy pos)
+\begin{DoxyCompactList}\small\item\em checks if given coordinate is taken \end{DoxyCompactList}\item 
+void \hyperlink{classmatrix_1_1P3__RGB__LED__matrix_ad620281eed116f01cab6cadd01156b12}{clear} ()
+\begin{DoxyCompactList}\small\item\em clears the buffer \end{DoxyCompactList}\item 
+void \hyperlink{classmatrix_1_1P3__RGB__LED__matrix_a50d11c7dfc0ba8d528c59be288377b8a}{flush} () override
+\begin{DoxyCompactList}\small\item\em draws pixels on the matrix \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classmatrix_1_1P3__RGB__LED__matrix}{P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix} class. 
+
+This is a class that uses the hwlib library to provide the user with an interface to work with matrices like this one\+: \href{https://www.adafruit.com/product/2279}{\tt https\+://www.\+adafruit.\+com/product/2279} This class provides a buffer with write functions and a toolset of other functions. The user must give three hwlib pins and three hwlib port\+\_\+outs to the constructor for initialization. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classmatrix_1_1P3__RGB__LED__matrix_aadf4b19a9e7a0abc01387b87e92f6c7d}\label{classmatrix_1_1P3__RGB__LED__matrix_aadf4b19a9e7a0abc01387b87e92f6c7d}} 
+\index{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix@{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix}!P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix@{P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix}}
+\index{P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix@{P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix}!matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix@{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix}}
+\subsubsection{\texorpdfstring{P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix()}{P3\_RGB\_LED\_matrix()}}
+{\footnotesize\ttfamily matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix (\begin{DoxyParamCaption}\item[{pin\+\_\+out \&}]{latch,  }\item[{pin\+\_\+out \&}]{out\+\_\+enable,  }\item[{pin\+\_\+out \&}]{clock,  }\item[{hwlib\+::port\+\_\+out \&}]{rows\+\_\+port,  }\item[{hwlib\+::port\+\_\+out \&}]{rgb1\+\_\+port,  }\item[{hwlib\+::port\+\_\+out \&}]{rgb2\+\_\+port,  }\item[{uint8\+\_\+t}]{foreground = {\ttfamily WHITE},  }\item[{uint8\+\_\+t}]{background = {\ttfamily BLACK} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+constructor from explicit values 
+
+This constructor initializes the pins and port\+\_\+outs and initializes its superclass, hwlib, with pre-\/defined values found at the top of the page. These values can be changed to change the resolution of the window. Lastly it intializes the dataport buffer(array) with zeroes. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classmatrix_1_1P3__RGB__LED__matrix_ad620281eed116f01cab6cadd01156b12}\label{classmatrix_1_1P3__RGB__LED__matrix_ad620281eed116f01cab6cadd01156b12}} 
+\index{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix@{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix}!clear@{clear}}
+\index{clear@{clear}!matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix@{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix}}
+\subsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily void matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+clears the buffer 
+
+This member function clears the buffer by reinitializing it with zeroes. \mbox{\Hypertarget{classmatrix_1_1P3__RGB__LED__matrix_a50d11c7dfc0ba8d528c59be288377b8a}\label{classmatrix_1_1P3__RGB__LED__matrix_a50d11c7dfc0ba8d528c59be288377b8a}} 
+\index{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix@{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix}!flush@{flush}}
+\index{flush@{flush}!matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix@{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix}}
+\subsubsection{\texorpdfstring{flush()}{flush()}}
+{\footnotesize\ttfamily void matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix\+::flush (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+
+
+draws pixels on the matrix 
+
+This function clocks in the data from the buffer to the shift-\/registers on the matrix. After clocking in one row on the matrix it will display the row for a short period before moving on to the next row. This function fully draws the screen one time. \mbox{\Hypertarget{classmatrix_1_1P3__RGB__LED__matrix_a6a402271f9f13d646be69fe39e5b08b6}\label{classmatrix_1_1P3__RGB__LED__matrix_a6a402271f9f13d646be69fe39e5b08b6}} 
+\index{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix@{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix}!is\+\_\+occupied@{is\+\_\+occupied}}
+\index{is\+\_\+occupied@{is\+\_\+occupied}!matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix@{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix}}
+\subsubsection{\texorpdfstring{is\+\_\+occupied()}{is\_occupied()}}
+{\footnotesize\ttfamily bool matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix\+::is\+\_\+occupied (\begin{DoxyParamCaption}\item[{hwlib\+::xy}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+checks if given coordinate is taken 
+
+This boolean member function checks the buffer to see if the given index has a value greater than zero. \mbox{\Hypertarget{classmatrix_1_1P3__RGB__LED__matrix_a217534f5145dad527103fa2c17484b6a}\label{classmatrix_1_1P3__RGB__LED__matrix_a217534f5145dad527103fa2c17484b6a}} 
+\index{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix@{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix}!is\+\_\+within\+\_\+bounds@{is\+\_\+within\+\_\+bounds}}
+\index{is\+\_\+within\+\_\+bounds@{is\+\_\+within\+\_\+bounds}!matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix@{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix}}
+\subsubsection{\texorpdfstring{is\+\_\+within\+\_\+bounds()}{is\_within\_bounds()}}
+{\footnotesize\ttfamily bool matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix\+::is\+\_\+within\+\_\+bounds (\begin{DoxyParamCaption}\item[{const hwlib\+::xy \&}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+checks if given coordinate is valid 
+
+This boolean member function checks to see if the given hwlib\+::xy pos is within the window resolution. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{P3-RGB-LED-matrix_8hpp}{P3-\/\+R\+G\+B-\/\+L\+E\+D-\/matrix.\+hpp}\end{DoxyCompactItemize}

@@ -1,0 +1,115 @@
+\hypertarget{classtetris_1_1O__shape}{}\section{tetris\+:\+:O\+\_\+shape Class Reference}
+\label{classtetris_1_1O__shape}\index{tetris\+::\+O\+\_\+shape@{tetris\+::\+O\+\_\+shape}}
+
+
+\hyperlink{classtetris_1_1O__shape}{O\+\_\+shape} class.  
+
+
+
+
+{\ttfamily \#include $<$tetris-\/shapes.\+hpp$>$}
+
+
+
+Inheritance diagram for tetris\+:\+:O\+\_\+shape\+:
+% FIG 0
+
+
+Collaboration diagram for tetris\+:\+:O\+\_\+shape\+:
+% FIG 1
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classtetris_1_1O__shape_a67c89bc9c13434b8ae34427434b4fba3}{O\+\_\+shape} (hwlib\+::xy s=hwlib\+::xy(48, 14), uint8\+\_\+t color=Y\+E\+L\+L\+OW)
+\begin{DoxyCompactList}\small\item\em constructor \end{DoxyCompactList}\item 
+bool \hyperlink{classtetris_1_1O__shape_a92c7b336c7d3f696f24b8675ec9faed9}{can\+\_\+rotate\+\_\+clkwise} (\hyperlink{classmatrix_1_1P3__RGB__LED__matrix}{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix} \&b) override
+\begin{DoxyCompactList}\small\item\em checks if tetromino can rotate clockwise \end{DoxyCompactList}\item 
+bool \hyperlink{classtetris_1_1O__shape_ae53421645f59627b6c6c7d26a59f2d6a}{can\+\_\+rotate\+\_\+ctr\+\_\+clkwise} (\hyperlink{classmatrix_1_1P3__RGB__LED__matrix}{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix} \&b) override
+\begin{DoxyCompactList}\small\item\em checks if tetromino can rotate counter-\/clockwise \end{DoxyCompactList}\item 
+void \hyperlink{classtetris_1_1O__shape_ad7372dc4b9b832ba1fe90488b15de95f}{rotate\+\_\+clkwise} (hwlib\+::window \&w) override
+\begin{DoxyCompactList}\small\item\em rotates tetromino clockwise \end{DoxyCompactList}\item 
+void \hyperlink{classtetris_1_1O__shape_adc8c727b5ae2ea3905ff70107be511bd}{rotate\+\_\+ctr\+\_\+clkwise} (hwlib\+::window \&w) override
+\begin{DoxyCompactList}\small\item\em rotates tetromino counter-\/clockwise \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\hyperlink{classtetris_1_1O__shape}{O\+\_\+shape} class. 
+
+This class inherits from \hyperlink{classtetris_1_1Tetromino}{Tetromino} and creates the so-\/called O-\/shape as can be found here\+: \href{https://en.wikipedia.org/wiki/Tetromino}{\tt https\+://en.\+wikipedia.\+org/wiki/\+Tetromino} 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtetris_1_1O__shape_a67c89bc9c13434b8ae34427434b4fba3}\label{classtetris_1_1O__shape_a67c89bc9c13434b8ae34427434b4fba3}} 
+\index{tetris\+::\+O\+\_\+shape@{tetris\+::\+O\+\_\+shape}!O\+\_\+shape@{O\+\_\+shape}}
+\index{O\+\_\+shape@{O\+\_\+shape}!tetris\+::\+O\+\_\+shape@{tetris\+::\+O\+\_\+shape}}
+\subsubsection{\texorpdfstring{O\+\_\+shape()}{O\_shape()}}
+{\footnotesize\ttfamily tetris\+::\+O\+\_\+shape\+::\+O\+\_\+shape (\begin{DoxyParamCaption}\item[{hwlib\+::xy}]{s = {\ttfamily hwlib\+:\+:xy(48,~14)},  }\item[{uint8\+\_\+t}]{color = {\ttfamily YELLOW} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+constructor 
+
+This constructor initializes its superclass with set values using a starting position. The starting position should be the left-\/most pixel of your shape. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classtetris_1_1O__shape_a92c7b336c7d3f696f24b8675ec9faed9}\label{classtetris_1_1O__shape_a92c7b336c7d3f696f24b8675ec9faed9}} 
+\index{tetris\+::\+O\+\_\+shape@{tetris\+::\+O\+\_\+shape}!can\+\_\+rotate\+\_\+clkwise@{can\+\_\+rotate\+\_\+clkwise}}
+\index{can\+\_\+rotate\+\_\+clkwise@{can\+\_\+rotate\+\_\+clkwise}!tetris\+::\+O\+\_\+shape@{tetris\+::\+O\+\_\+shape}}
+\subsubsection{\texorpdfstring{can\+\_\+rotate\+\_\+clkwise()}{can\_rotate\_clkwise()}}
+{\footnotesize\ttfamily bool tetris\+::\+O\+\_\+shape\+::can\+\_\+rotate\+\_\+clkwise (\begin{DoxyParamCaption}\item[{\hyperlink{classmatrix_1_1P3__RGB__LED__matrix}{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+checks if tetromino can rotate clockwise 
+
+This member function looks in the buffer to see if the tetromino is eligible for clockwise rotation. In order for a tetromino to be able to rotate all new positions of the tetromino must not be occupied by another drawable. 
+
+Reimplemented from \hyperlink{classtetris_1_1Tetromino_a7572a9fba3397bf92dba30f79bec908b}{tetris\+::\+Tetromino}.
+
+\mbox{\Hypertarget{classtetris_1_1O__shape_ae53421645f59627b6c6c7d26a59f2d6a}\label{classtetris_1_1O__shape_ae53421645f59627b6c6c7d26a59f2d6a}} 
+\index{tetris\+::\+O\+\_\+shape@{tetris\+::\+O\+\_\+shape}!can\+\_\+rotate\+\_\+ctr\+\_\+clkwise@{can\+\_\+rotate\+\_\+ctr\+\_\+clkwise}}
+\index{can\+\_\+rotate\+\_\+ctr\+\_\+clkwise@{can\+\_\+rotate\+\_\+ctr\+\_\+clkwise}!tetris\+::\+O\+\_\+shape@{tetris\+::\+O\+\_\+shape}}
+\subsubsection{\texorpdfstring{can\+\_\+rotate\+\_\+ctr\+\_\+clkwise()}{can\_rotate\_ctr\_clkwise()}}
+{\footnotesize\ttfamily bool tetris\+::\+O\+\_\+shape\+::can\+\_\+rotate\+\_\+ctr\+\_\+clkwise (\begin{DoxyParamCaption}\item[{\hyperlink{classmatrix_1_1P3__RGB__LED__matrix}{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+checks if tetromino can rotate counter-\/clockwise 
+
+This member function looks in the buffer to see if the tetromino is eligible for counter-\/clockwise rotation. In order for a tetromino to be able to rotate all new positions of the tetromino must not be occupied by another drawable. 
+
+Reimplemented from \hyperlink{classtetris_1_1Tetromino_a0c0646597824b901b9b22a5b1b9d6436}{tetris\+::\+Tetromino}.
+
+\mbox{\Hypertarget{classtetris_1_1O__shape_ad7372dc4b9b832ba1fe90488b15de95f}\label{classtetris_1_1O__shape_ad7372dc4b9b832ba1fe90488b15de95f}} 
+\index{tetris\+::\+O\+\_\+shape@{tetris\+::\+O\+\_\+shape}!rotate\+\_\+clkwise@{rotate\+\_\+clkwise}}
+\index{rotate\+\_\+clkwise@{rotate\+\_\+clkwise}!tetris\+::\+O\+\_\+shape@{tetris\+::\+O\+\_\+shape}}
+\subsubsection{\texorpdfstring{rotate\+\_\+clkwise()}{rotate\_clkwise()}}
+{\footnotesize\ttfamily void tetris\+::\+O\+\_\+shape\+::rotate\+\_\+clkwise (\begin{DoxyParamCaption}\item[{hwlib\+::window \&}]{w }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+rotates tetromino clockwise 
+
+This member function rotates the tetromino clockwise using given window. Old position is forgotten from the window before new position is calculated. After calculating new positions, the tetromino is drawn into the window again. 
+
+Reimplemented from \hyperlink{classtetris_1_1Tetromino_a18a7c7e9f0caa52f425d99a818a1e2d2}{tetris\+::\+Tetromino}.
+
+\mbox{\Hypertarget{classtetris_1_1O__shape_adc8c727b5ae2ea3905ff70107be511bd}\label{classtetris_1_1O__shape_adc8c727b5ae2ea3905ff70107be511bd}} 
+\index{tetris\+::\+O\+\_\+shape@{tetris\+::\+O\+\_\+shape}!rotate\+\_\+ctr\+\_\+clkwise@{rotate\+\_\+ctr\+\_\+clkwise}}
+\index{rotate\+\_\+ctr\+\_\+clkwise@{rotate\+\_\+ctr\+\_\+clkwise}!tetris\+::\+O\+\_\+shape@{tetris\+::\+O\+\_\+shape}}
+\subsubsection{\texorpdfstring{rotate\+\_\+ctr\+\_\+clkwise()}{rotate\_ctr\_clkwise()}}
+{\footnotesize\ttfamily void tetris\+::\+O\+\_\+shape\+::rotate\+\_\+ctr\+\_\+clkwise (\begin{DoxyParamCaption}\item[{hwlib\+::window \&}]{w }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+rotates tetromino counter-\/clockwise 
+
+This member function rotates the tetromino counter-\/clockwise using given window. Old position is forgotten from the window before new position is calculated. After calculating new positions, the tetromino is drawn into the window again. 
+
+Reimplemented from \hyperlink{classtetris_1_1Tetromino_a948dca1ff8a7e128270cdbbba8d214a3}{tetris\+::\+Tetromino}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{tetris-shapes_8hpp}{tetris-\/shapes.\+hpp}\end{DoxyCompactItemize}

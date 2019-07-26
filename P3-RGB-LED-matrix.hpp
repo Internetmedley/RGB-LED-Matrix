@@ -85,10 +85,20 @@ class P3_RGB_LED_matrix : public hwlib::window{
         }	
     }	
 
+    /// \brief
+    /// clears the buffer
+    /// \details
+    /// This member function clears the buffer by reinitializing it with zeroes.
     void clear(){	
         dataport = {{ 0 }};	
     }
 
+    /// \brief
+    /// draws pixels on the matrix
+    /// \details
+    /// This function clocks in the data from the buffer to the shift-registers on the matrix.
+    /// After clocking in one row on the matrix it will display the row for a short period before moving on to the next row.
+    /// This function fully draws the screen one time. 
     void flush() override {	
         uint8_t tmp_i = 0;	
         for( auto i = dataport.begin(); i !=dataport.end(); i++ ){	

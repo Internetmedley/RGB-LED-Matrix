@@ -1,0 +1,285 @@
+\hypertarget{classtetris_1_1Tetromino}{}\section{tetris\+:\+:Tetromino Class Reference}
+\label{classtetris_1_1Tetromino}\index{tetris\+::\+Tetromino@{tetris\+::\+Tetromino}}
+
+
+tetromino class  
+
+
+
+
+{\ttfamily \#include $<$tetromino.\+hpp$>$}
+
+
+
+Inheritance diagram for tetris\+:\+:Tetromino\+:
+% FIG 0
+
+
+Collaboration diagram for tetris\+:\+:Tetromino\+:
+% FIG 1
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classtetris_1_1Tetromino_a2fd9a4c170a10eeba329abf374cd3f39}{Tetromino} (hwlib\+::xy anchor\+\_\+start, hwlib\+::xy b1\+\_\+start, hwlib\+::xy b2\+\_\+start, hwlib\+::xy b3\+\_\+start, uint8\+\_\+t col)
+\begin{DoxyCompactList}\small\item\em constructor from explicit values \end{DoxyCompactList}\item 
+void \hyperlink{classtetris_1_1Tetromino_a36ccceea1c911da05f9a7e7406ecde0a}{reset} ()
+\begin{DoxyCompactList}\small\item\em resets coordinate values \end{DoxyCompactList}\item 
+void \hyperlink{classtetris_1_1Tetromino_a3dabc26c500e8da90bbfb0347729afc6}{draw} (hwlib\+::window \&w) override
+\begin{DoxyCompactList}\small\item\em writes to the window \end{DoxyCompactList}\item 
+void \hyperlink{classtetris_1_1Tetromino_a17a79ae9e1d8c7a4041f2f0192923a2b}{forget} (hwlib\+::window \&w)
+\begin{DoxyCompactList}\small\item\em removes tetromino\textquotesingle{}s \end{DoxyCompactList}\item 
+bool \hyperlink{classtetris_1_1Tetromino_ab2b11138e2d27635d7b7afaaeea58bed}{can\+\_\+line\+\_\+clear} (\hyperlink{classmatrix_1_1P3__RGB__LED__matrix}{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix} \&b)
+\begin{DoxyCompactList}\small\item\em checks for filled rows \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classtetris_1_1Tetromino_a7572a9fba3397bf92dba30f79bec908b}{can\+\_\+rotate\+\_\+clkwise} (\hyperlink{classmatrix_1_1P3__RGB__LED__matrix}{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix} \&b)
+\begin{DoxyCompactList}\small\item\em checks if tetromino can rotate clockwise \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classtetris_1_1Tetromino_a0c0646597824b901b9b22a5b1b9d6436}{can\+\_\+rotate\+\_\+ctr\+\_\+clkwise} (\hyperlink{classmatrix_1_1P3__RGB__LED__matrix}{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix} \&b)
+\begin{DoxyCompactList}\small\item\em checks if tetromino can rotate counter-\/clockwise \end{DoxyCompactList}\item 
+virtual void \hyperlink{classtetris_1_1Tetromino_a18a7c7e9f0caa52f425d99a818a1e2d2}{rotate\+\_\+clkwise} (hwlib\+::window \&w)
+\begin{DoxyCompactList}\small\item\em rotates tetromino clockwise \end{DoxyCompactList}\item 
+virtual void \hyperlink{classtetris_1_1Tetromino_a948dca1ff8a7e128270cdbbba8d214a3}{rotate\+\_\+ctr\+\_\+clkwise} (hwlib\+::window \&w)
+\begin{DoxyCompactList}\small\item\em rotates tetromino counter-\/clockwise \end{DoxyCompactList}\item 
+void \hyperlink{classtetris_1_1Tetromino_a2e9fa7445d505ea6125bd692cd7f0aa2}{update} (hwlib\+::window \&w)
+\begin{DoxyCompactList}\small\item\em updates the xy coordinates \end{DoxyCompactList}\item 
+void \hyperlink{classtetris_1_1Tetromino_a581b04b1c750ab0e2ebca62aba4611f7}{move\+\_\+down} (hwlib\+::window \&w)
+\begin{DoxyCompactList}\small\item\em moves tetromino down \end{DoxyCompactList}\item 
+void \hyperlink{classtetris_1_1Tetromino_adf8a1d7bc8d3e3897ea4d155e96a34f5}{move\+\_\+left} (hwlib\+::window \&w)
+\begin{DoxyCompactList}\small\item\em moves tetromino to the left \end{DoxyCompactList}\item 
+void \hyperlink{classtetris_1_1Tetromino_ae2a139a5e4e31424a8db98b19b534db8}{move\+\_\+right} (hwlib\+::window \&w)
+\begin{DoxyCompactList}\small\item\em moves tetromino to the right \end{DoxyCompactList}\item 
+bool \hyperlink{classtetris_1_1Tetromino_aba9c0120390c49a0b5b79f52a69bc48f}{can\+\_\+move\+\_\+down} (\hyperlink{classmatrix_1_1P3__RGB__LED__matrix}{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix} \&b)
+\begin{DoxyCompactList}\small\item\em checks if tetromino can move down \end{DoxyCompactList}\item 
+bool \hyperlink{classtetris_1_1Tetromino_a6cdb8fa8fba590bfdad3e05e6d5e2699}{can\+\_\+move\+\_\+left} (\hyperlink{classmatrix_1_1P3__RGB__LED__matrix}{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix} \&b)
+\begin{DoxyCompactList}\small\item\em checks if tetromino can move to the left \end{DoxyCompactList}\item 
+bool \hyperlink{classtetris_1_1Tetromino_a55f3f84840d8c5d5e37765a64d59d8d9}{can\+\_\+move\+\_\+right} (\hyperlink{classmatrix_1_1P3__RGB__LED__matrix}{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix} \&b)
+\begin{DoxyCompactList}\small\item\em checks if tetromino can move to the right \end{DoxyCompactList}\item 
+uint8\+\_\+t \hyperlink{classtetris_1_1Tetromino_a379719e9cb92b02c84f7a4ed99d1a391}{get\+\_\+color} ()
+\begin{DoxyCompactList}\small\item\em returns color value \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classtetris_1_1Tetromino_ab896704417efe22a953237630682842c}\label{classtetris_1_1Tetromino_ab896704417efe22a953237630682842c}} 
+hwlib\+::xy {\bfseries anchor\+\_\+end}
+\item 
+\mbox{\Hypertarget{classtetris_1_1Tetromino_a0aa79d0712026a63e4c13a7319062f1a}\label{classtetris_1_1Tetromino_a0aa79d0712026a63e4c13a7319062f1a}} 
+hwlib\+::xy {\bfseries b1\+\_\+start}
+\item 
+\mbox{\Hypertarget{classtetris_1_1Tetromino_af406624050337a1d015130d8fa62c247}\label{classtetris_1_1Tetromino_af406624050337a1d015130d8fa62c247}} 
+hwlib\+::xy {\bfseries b1\+\_\+end}
+\item 
+\mbox{\Hypertarget{classtetris_1_1Tetromino_aa4cb19767c4ac9dd706065eda1745df9}\label{classtetris_1_1Tetromino_aa4cb19767c4ac9dd706065eda1745df9}} 
+hwlib\+::xy {\bfseries b2\+\_\+start}
+\item 
+\mbox{\Hypertarget{classtetris_1_1Tetromino_a56213f0aba5003fdfda3b93c9e5cc9d6}\label{classtetris_1_1Tetromino_a56213f0aba5003fdfda3b93c9e5cc9d6}} 
+hwlib\+::xy {\bfseries b2\+\_\+end}
+\item 
+\mbox{\Hypertarget{classtetris_1_1Tetromino_a2d9a1fe579c7640462285630ef828cf6}\label{classtetris_1_1Tetromino_a2d9a1fe579c7640462285630ef828cf6}} 
+hwlib\+::xy {\bfseries b3\+\_\+start}
+\item 
+\mbox{\Hypertarget{classtetris_1_1Tetromino_a4042358d9b06c3472c21be7d1131f178}\label{classtetris_1_1Tetromino_a4042358d9b06c3472c21be7d1131f178}} 
+hwlib\+::xy {\bfseries b3\+\_\+end}
+\item 
+\mbox{\Hypertarget{classtetris_1_1Tetromino_ab19195a914cecc3f58ee748976431bd1}\label{classtetris_1_1Tetromino_ab19195a914cecc3f58ee748976431bd1}} 
+hwlib\+::xy {\bfseries speed}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+tetromino class 
+
+This class inherits from hwlib\+::drawable to make shapes of 4 blocks like the ones used in Tetris. Each block of the shape is represented by 4 pixels. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtetris_1_1Tetromino_a2fd9a4c170a10eeba329abf374cd3f39}\label{classtetris_1_1Tetromino_a2fd9a4c170a10eeba329abf374cd3f39}} 
+\index{tetris\+::\+Tetromino@{tetris\+::\+Tetromino}!Tetromino@{Tetromino}}
+\index{Tetromino@{Tetromino}!tetris\+::\+Tetromino@{tetris\+::\+Tetromino}}
+\subsubsection{\texorpdfstring{Tetromino()}{Tetromino()}}
+{\footnotesize\ttfamily tetris\+::\+Tetromino\+::\+Tetromino (\begin{DoxyParamCaption}\item[{hwlib\+::xy}]{anchor\+\_\+start,  }\item[{hwlib\+::xy}]{b1\+\_\+start,  }\item[{hwlib\+::xy}]{b2\+\_\+start,  }\item[{hwlib\+::xy}]{b3\+\_\+start,  }\item[{uint8\+\_\+t}]{col }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+constructor from explicit values 
+
+This constructor initializes all coordinate variables using given start positions for each of the 4 blocks. An end coordinate is always a start value + xy(1, 1 ) to represent a block of 4 pixels. Initializes color with given color and speed with xy(-\/2, 0). 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classtetris_1_1Tetromino_ab2b11138e2d27635d7b7afaaeea58bed}\label{classtetris_1_1Tetromino_ab2b11138e2d27635d7b7afaaeea58bed}} 
+\index{tetris\+::\+Tetromino@{tetris\+::\+Tetromino}!can\+\_\+line\+\_\+clear@{can\+\_\+line\+\_\+clear}}
+\index{can\+\_\+line\+\_\+clear@{can\+\_\+line\+\_\+clear}!tetris\+::\+Tetromino@{tetris\+::\+Tetromino}}
+\subsubsection{\texorpdfstring{can\+\_\+line\+\_\+clear()}{can\_line\_clear()}}
+{\footnotesize\ttfamily bool tetris\+::\+Tetromino\+::can\+\_\+line\+\_\+clear (\begin{DoxyParamCaption}\item[{\hyperlink{classmatrix_1_1P3__RGB__LED__matrix}{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+checks for filled rows 
+
+This member function checks to see if there is a filled row in the buffer on the x line. \mbox{\Hypertarget{classtetris_1_1Tetromino_aba9c0120390c49a0b5b79f52a69bc48f}\label{classtetris_1_1Tetromino_aba9c0120390c49a0b5b79f52a69bc48f}} 
+\index{tetris\+::\+Tetromino@{tetris\+::\+Tetromino}!can\+\_\+move\+\_\+down@{can\+\_\+move\+\_\+down}}
+\index{can\+\_\+move\+\_\+down@{can\+\_\+move\+\_\+down}!tetris\+::\+Tetromino@{tetris\+::\+Tetromino}}
+\subsubsection{\texorpdfstring{can\+\_\+move\+\_\+down()}{can\_move\_down()}}
+{\footnotesize\ttfamily bool tetris\+::\+Tetromino\+::can\+\_\+move\+\_\+down (\begin{DoxyParamCaption}\item[{\hyperlink{classmatrix_1_1P3__RGB__LED__matrix}{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+checks if tetromino can move down 
+
+This member function checks to see using given R\+G\+B-\/\+L\+E\+D-\/matrix buffer if the tetromino is able to move down. It loops through an array of member variables and looks if the xy coordinate plus the speed does not equal any of its own xy member variables and if these new positions are not occupied. \mbox{\Hypertarget{classtetris_1_1Tetromino_a6cdb8fa8fba590bfdad3e05e6d5e2699}\label{classtetris_1_1Tetromino_a6cdb8fa8fba590bfdad3e05e6d5e2699}} 
+\index{tetris\+::\+Tetromino@{tetris\+::\+Tetromino}!can\+\_\+move\+\_\+left@{can\+\_\+move\+\_\+left}}
+\index{can\+\_\+move\+\_\+left@{can\+\_\+move\+\_\+left}!tetris\+::\+Tetromino@{tetris\+::\+Tetromino}}
+\subsubsection{\texorpdfstring{can\+\_\+move\+\_\+left()}{can\_move\_left()}}
+{\footnotesize\ttfamily bool tetris\+::\+Tetromino\+::can\+\_\+move\+\_\+left (\begin{DoxyParamCaption}\item[{\hyperlink{classmatrix_1_1P3__RGB__LED__matrix}{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+checks if tetromino can move to the left 
+
+This member function changes the speed member variable and then stores the result for the can\+\_\+move\+\_\+down member function in bool updatable. After this speed will be put back to xy(-\/2, 0 ) and the stored result in updatable will be returned. \mbox{\Hypertarget{classtetris_1_1Tetromino_a55f3f84840d8c5d5e37765a64d59d8d9}\label{classtetris_1_1Tetromino_a55f3f84840d8c5d5e37765a64d59d8d9}} 
+\index{tetris\+::\+Tetromino@{tetris\+::\+Tetromino}!can\+\_\+move\+\_\+right@{can\+\_\+move\+\_\+right}}
+\index{can\+\_\+move\+\_\+right@{can\+\_\+move\+\_\+right}!tetris\+::\+Tetromino@{tetris\+::\+Tetromino}}
+\subsubsection{\texorpdfstring{can\+\_\+move\+\_\+right()}{can\_move\_right()}}
+{\footnotesize\ttfamily bool tetris\+::\+Tetromino\+::can\+\_\+move\+\_\+right (\begin{DoxyParamCaption}\item[{\hyperlink{classmatrix_1_1P3__RGB__LED__matrix}{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+checks if tetromino can move to the right 
+
+This member function changes the speed member variable and then stores the result for the can\+\_\+move\+\_\+down member function in bool updatable. After this speed will be put back to xy(-\/2, 0 ) and the stored result in updatable will be returned. \mbox{\Hypertarget{classtetris_1_1Tetromino_a7572a9fba3397bf92dba30f79bec908b}\label{classtetris_1_1Tetromino_a7572a9fba3397bf92dba30f79bec908b}} 
+\index{tetris\+::\+Tetromino@{tetris\+::\+Tetromino}!can\+\_\+rotate\+\_\+clkwise@{can\+\_\+rotate\+\_\+clkwise}}
+\index{can\+\_\+rotate\+\_\+clkwise@{can\+\_\+rotate\+\_\+clkwise}!tetris\+::\+Tetromino@{tetris\+::\+Tetromino}}
+\subsubsection{\texorpdfstring{can\+\_\+rotate\+\_\+clkwise()}{can\_rotate\_clkwise()}}
+{\footnotesize\ttfamily virtual bool tetris\+::\+Tetromino\+::can\+\_\+rotate\+\_\+clkwise (\begin{DoxyParamCaption}\item[{\hyperlink{classmatrix_1_1P3__RGB__LED__matrix}{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+checks if tetromino can rotate clockwise 
+
+This member function looks in the buffer to see if the tetromino is eligible for clockwise rotation. In order for a tetromino to be able to rotate all new positions of the tetromino must not be occupied by another drawable. 
+
+Reimplemented in \hyperlink{classtetris_1_1O__shape_a92c7b336c7d3f696f24b8675ec9faed9}{tetris\+::\+O\+\_\+shape}.
+
+\mbox{\Hypertarget{classtetris_1_1Tetromino_a0c0646597824b901b9b22a5b1b9d6436}\label{classtetris_1_1Tetromino_a0c0646597824b901b9b22a5b1b9d6436}} 
+\index{tetris\+::\+Tetromino@{tetris\+::\+Tetromino}!can\+\_\+rotate\+\_\+ctr\+\_\+clkwise@{can\+\_\+rotate\+\_\+ctr\+\_\+clkwise}}
+\index{can\+\_\+rotate\+\_\+ctr\+\_\+clkwise@{can\+\_\+rotate\+\_\+ctr\+\_\+clkwise}!tetris\+::\+Tetromino@{tetris\+::\+Tetromino}}
+\subsubsection{\texorpdfstring{can\+\_\+rotate\+\_\+ctr\+\_\+clkwise()}{can\_rotate\_ctr\_clkwise()}}
+{\footnotesize\ttfamily virtual bool tetris\+::\+Tetromino\+::can\+\_\+rotate\+\_\+ctr\+\_\+clkwise (\begin{DoxyParamCaption}\item[{\hyperlink{classmatrix_1_1P3__RGB__LED__matrix}{matrix\+::\+P3\+\_\+\+R\+G\+B\+\_\+\+L\+E\+D\+\_\+matrix} \&}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+checks if tetromino can rotate counter-\/clockwise 
+
+This member function looks in the buffer to see if the tetromino is eligible for counter-\/clockwise rotation. In order for a tetromino to be able to rotate all new positions of the tetromino must not be occupied by another drawable. 
+
+Reimplemented in \hyperlink{classtetris_1_1O__shape_ae53421645f59627b6c6c7d26a59f2d6a}{tetris\+::\+O\+\_\+shape}.
+
+\mbox{\Hypertarget{classtetris_1_1Tetromino_a3dabc26c500e8da90bbfb0347729afc6}\label{classtetris_1_1Tetromino_a3dabc26c500e8da90bbfb0347729afc6}} 
+\index{tetris\+::\+Tetromino@{tetris\+::\+Tetromino}!draw@{draw}}
+\index{draw@{draw}!tetris\+::\+Tetromino@{tetris\+::\+Tetromino}}
+\subsubsection{\texorpdfstring{draw()}{draw()}}
+{\footnotesize\ttfamily void tetris\+::\+Tetromino\+::draw (\begin{DoxyParamCaption}\item[{hwlib\+::window \&}]{w }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}}
+
+
+
+writes to the window 
+
+This member function makes rectangles using its xy and color member variables and then immediately writes them to the window. \mbox{\Hypertarget{classtetris_1_1Tetromino_a17a79ae9e1d8c7a4041f2f0192923a2b}\label{classtetris_1_1Tetromino_a17a79ae9e1d8c7a4041f2f0192923a2b}} 
+\index{tetris\+::\+Tetromino@{tetris\+::\+Tetromino}!forget@{forget}}
+\index{forget@{forget}!tetris\+::\+Tetromino@{tetris\+::\+Tetromino}}
+\subsubsection{\texorpdfstring{forget()}{forget()}}
+{\footnotesize\ttfamily void tetris\+::\+Tetromino\+::forget (\begin{DoxyParamCaption}\item[{hwlib\+::window \&}]{w }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+removes tetromino\textquotesingle{}s 
+
+This member function makes rectangles using its xy member variables but it uses black as color when writing to the window. This causes the window to \char`\"{}forget\char`\"{} where the shape is and it removes it from the buffer. \mbox{\Hypertarget{classtetris_1_1Tetromino_a379719e9cb92b02c84f7a4ed99d1a391}\label{classtetris_1_1Tetromino_a379719e9cb92b02c84f7a4ed99d1a391}} 
+\index{tetris\+::\+Tetromino@{tetris\+::\+Tetromino}!get\+\_\+color@{get\+\_\+color}}
+\index{get\+\_\+color@{get\+\_\+color}!tetris\+::\+Tetromino@{tetris\+::\+Tetromino}}
+\subsubsection{\texorpdfstring{get\+\_\+color()}{get\_color()}}
+{\footnotesize\ttfamily uint8\+\_\+t tetris\+::\+Tetromino\+::get\+\_\+color (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+returns color value 
+
+This member function returns the member variable color. \mbox{\Hypertarget{classtetris_1_1Tetromino_a581b04b1c750ab0e2ebca62aba4611f7}\label{classtetris_1_1Tetromino_a581b04b1c750ab0e2ebca62aba4611f7}} 
+\index{tetris\+::\+Tetromino@{tetris\+::\+Tetromino}!move\+\_\+down@{move\+\_\+down}}
+\index{move\+\_\+down@{move\+\_\+down}!tetris\+::\+Tetromino@{tetris\+::\+Tetromino}}
+\subsubsection{\texorpdfstring{move\+\_\+down()}{move\_down()}}
+{\footnotesize\ttfamily void tetris\+::\+Tetromino\+::move\+\_\+down (\begin{DoxyParamCaption}\item[{hwlib\+::window \&}]{w }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+moves tetromino down 
+
+This member function moves the tetromino down by calling the update function after setting the speed to xy(-\/2, 0). \mbox{\Hypertarget{classtetris_1_1Tetromino_adf8a1d7bc8d3e3897ea4d155e96a34f5}\label{classtetris_1_1Tetromino_adf8a1d7bc8d3e3897ea4d155e96a34f5}} 
+\index{tetris\+::\+Tetromino@{tetris\+::\+Tetromino}!move\+\_\+left@{move\+\_\+left}}
+\index{move\+\_\+left@{move\+\_\+left}!tetris\+::\+Tetromino@{tetris\+::\+Tetromino}}
+\subsubsection{\texorpdfstring{move\+\_\+left()}{move\_left()}}
+{\footnotesize\ttfamily void tetris\+::\+Tetromino\+::move\+\_\+left (\begin{DoxyParamCaption}\item[{hwlib\+::window \&}]{w }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+moves tetromino to the left 
+
+This member function moves the tetromino to the left by calling the update function after setting the speed to xy(0, -\/2). \mbox{\Hypertarget{classtetris_1_1Tetromino_ae2a139a5e4e31424a8db98b19b534db8}\label{classtetris_1_1Tetromino_ae2a139a5e4e31424a8db98b19b534db8}} 
+\index{tetris\+::\+Tetromino@{tetris\+::\+Tetromino}!move\+\_\+right@{move\+\_\+right}}
+\index{move\+\_\+right@{move\+\_\+right}!tetris\+::\+Tetromino@{tetris\+::\+Tetromino}}
+\subsubsection{\texorpdfstring{move\+\_\+right()}{move\_right()}}
+{\footnotesize\ttfamily void tetris\+::\+Tetromino\+::move\+\_\+right (\begin{DoxyParamCaption}\item[{hwlib\+::window \&}]{w }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+moves tetromino to the right 
+
+This member function moves the tetromino to the right by calling the update function after setting the speed to xy(0, 2). \mbox{\Hypertarget{classtetris_1_1Tetromino_a36ccceea1c911da05f9a7e7406ecde0a}\label{classtetris_1_1Tetromino_a36ccceea1c911da05f9a7e7406ecde0a}} 
+\index{tetris\+::\+Tetromino@{tetris\+::\+Tetromino}!reset@{reset}}
+\index{reset@{reset}!tetris\+::\+Tetromino@{tetris\+::\+Tetromino}}
+\subsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily void tetris\+::\+Tetromino\+::reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+resets coordinate values 
+
+This member function resets its member variables to the values it got when it was first initialized. \mbox{\Hypertarget{classtetris_1_1Tetromino_a18a7c7e9f0caa52f425d99a818a1e2d2}\label{classtetris_1_1Tetromino_a18a7c7e9f0caa52f425d99a818a1e2d2}} 
+\index{tetris\+::\+Tetromino@{tetris\+::\+Tetromino}!rotate\+\_\+clkwise@{rotate\+\_\+clkwise}}
+\index{rotate\+\_\+clkwise@{rotate\+\_\+clkwise}!tetris\+::\+Tetromino@{tetris\+::\+Tetromino}}
+\subsubsection{\texorpdfstring{rotate\+\_\+clkwise()}{rotate\_clkwise()}}
+{\footnotesize\ttfamily virtual void tetris\+::\+Tetromino\+::rotate\+\_\+clkwise (\begin{DoxyParamCaption}\item[{hwlib\+::window \&}]{w }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+rotates tetromino clockwise 
+
+This member function rotates the tetromino clockwise using given window. Old position is forgotten from the window before new position is calculated. After calculating new positions, the tetromino is drawn into the window again. 
+
+Reimplemented in \hyperlink{classtetris_1_1O__shape_ad7372dc4b9b832ba1fe90488b15de95f}{tetris\+::\+O\+\_\+shape}.
+
+\mbox{\Hypertarget{classtetris_1_1Tetromino_a948dca1ff8a7e128270cdbbba8d214a3}\label{classtetris_1_1Tetromino_a948dca1ff8a7e128270cdbbba8d214a3}} 
+\index{tetris\+::\+Tetromino@{tetris\+::\+Tetromino}!rotate\+\_\+ctr\+\_\+clkwise@{rotate\+\_\+ctr\+\_\+clkwise}}
+\index{rotate\+\_\+ctr\+\_\+clkwise@{rotate\+\_\+ctr\+\_\+clkwise}!tetris\+::\+Tetromino@{tetris\+::\+Tetromino}}
+\subsubsection{\texorpdfstring{rotate\+\_\+ctr\+\_\+clkwise()}{rotate\_ctr\_clkwise()}}
+{\footnotesize\ttfamily virtual void tetris\+::\+Tetromino\+::rotate\+\_\+ctr\+\_\+clkwise (\begin{DoxyParamCaption}\item[{hwlib\+::window \&}]{w }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+rotates tetromino counter-\/clockwise 
+
+This member function rotates the tetromino counter-\/clockwise using given window. Old position is forgotten from the window before new position is calculated. After calculating new positions, the tetromino is drawn into the window again. 
+
+Reimplemented in \hyperlink{classtetris_1_1O__shape_adc8c727b5ae2ea3905ff70107be511bd}{tetris\+::\+O\+\_\+shape}.
+
+\mbox{\Hypertarget{classtetris_1_1Tetromino_a2e9fa7445d505ea6125bd692cd7f0aa2}\label{classtetris_1_1Tetromino_a2e9fa7445d505ea6125bd692cd7f0aa2}} 
+\index{tetris\+::\+Tetromino@{tetris\+::\+Tetromino}!update@{update}}
+\index{update@{update}!tetris\+::\+Tetromino@{tetris\+::\+Tetromino}}
+\subsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void tetris\+::\+Tetromino\+::update (\begin{DoxyParamCaption}\item[{hwlib\+::window \&}]{w }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+updates the xy coordinates 
+
+This member function updates its member xy variables by adding member variable speed to it. First it forgets the tetromino from window, then it calculates new coordinates. After calculating it will redraw the tetromino into the given window. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{tetromino_8hpp}{tetromino.\+hpp}\end{DoxyCompactItemize}
